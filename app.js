@@ -1,5 +1,6 @@
 'use strict';
 
+//Importation des modules
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,6 +12,7 @@ var session = require('express-session');
 var passport = require('passport');
 var auth = require('./config/passport.js');
 
+//Connection à la base de donnée
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/db');
 
@@ -29,7 +31,7 @@ var dashboard = require('./app/routes/dashboard.js');
 
 var app = express();
 
-// view engine setup
+//Template
 app.set('views', path.join(__dirname, './app/views'));
 app.set('view engine', 'ejs');
 
@@ -51,9 +53,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 var auth = auth();
 
+//Pour avoir accès à GET, POST, PUT et DELETE
 app.use(methodOverride(function(req, res){
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-    // look in urlencoded POST bodies and delete it
     var method = req.body._method
     delete req.body._method
     return method
@@ -71,7 +73,7 @@ app.use('/section', section);
 app.use('/enfant', enfant);
 app.use('/dashboard', dashboard);
 
-// catch 404 and forward to error handler
+//Erreur 404
 app.use(function(req, res) {
     res.render('404',{
         titre : "Les scouts | Erreur 404",
