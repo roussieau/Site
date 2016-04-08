@@ -1,0 +1,24 @@
+<% include ./header.ejs %>
+<div class="container-fluid">
+    <h1>Bonjour <%= log.prenom%></h1>
+    <h2>Mes enfants </h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <%_ local.enfant.forEach(function(el){_%>
+            <tr>
+                <td><%=el.nom %></td>
+                <td><%=el.prenom %></td>
+                <td><a href="/enfant/<%=el._id%>">Editer</a></td>
+            </tr>
+            <%_ }); _%>
+        </tbody>
+    </table>
+</div>
+<% include ./footer.ejs %>

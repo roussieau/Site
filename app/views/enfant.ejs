@@ -1,0 +1,21 @@
+<% include ./header.ejs %>
+<div class="container-fluid">
+    <h1>Les enfants</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%_ enfant.forEach(function(el){_%>
+            <tr>
+                <td><%=el.nom %></td>
+                <td><%=el.prenom %></td>
+            </tr>
+            <%_ }); _%>
+        </tbody>
+    </table>
+</div>
+<% include ./footer.ejs %>

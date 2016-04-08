@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= titre %></title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Les Scouts</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li <%if(titre == "Les scouts | Accueil"){%> class="active"<%}%>><a href="/">Accueil</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Les sections
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <%_ section.forEach(function(el){ _%>
+                                <li><a href="/<%=el.nom%>"><%=el.nom%></a></li>
+                            <%_ }); _%>
+                        </ul>
+                    </li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mon compte
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <%_ if(!log) {_%>
+                            <li><a href="/signup">S'inscrire</a></li>
+                            <li><a href="/login">Se connecter</a></li>
+                            <%_ } else { _%>
+                            <li><a href="/dashboard">Dashboard</a></li>
+                            <li><a href="/logout">Déconnexion</a></li>
+                            <%_ } _%>
+                        </lu>
+                    </li>
+                </ul>
+            </div>
+        </nav>

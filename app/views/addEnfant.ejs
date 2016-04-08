@@ -1,0 +1,46 @@
+<% include ./header %>
+    <div class="container">
+        <h1>Inscription d'un enfant</h1>
+        <div class="row">
+            <form class="form-horizontal" role="form" method="post">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="nom">Nom :</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nom" name="nom">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="prenom">Prénom :</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="prenom" name="prenom">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="totem">Totem :</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="totem" name="totem">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="sec">Select list:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="sec" name="sec">
+                                <%_ section.forEach(function(el){ _%>
+                                    <option value="<%=el.nom%>"><%=el.nom%></option>
+                                <%_ });_%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="commentaire">Commentaire</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="commentaire" name="commentaire" placeholder="Ajouter un commentaire"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Enregistrer</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+<% include ./footer %>

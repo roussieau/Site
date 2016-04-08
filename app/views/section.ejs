@@ -1,0 +1,19 @@
+<% include ./header.ejs %>
+<div class="container-fluid">
+    <h1>Les sections du site</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%_ section.forEach(function(el){_%>
+            <tr>
+                <td><%=el.nom %></td>
+            </tr>
+            <%_ }); _%>
+        </tbody>
+    </table>
+</div>
+<% include ./footer.ejs %>

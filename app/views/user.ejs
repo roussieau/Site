@@ -1,0 +1,33 @@
+<% include ./header.ejs %>
+<div class="container-fluid">
+    <h1>Les utilisateurs du site</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <%_ user.forEach(function(el){_%>
+            <tr>
+                <td><%=el.nom %></td>
+                <td><%=el.prenom%></td>
+                <%_ if(el.grade==1) {_%>
+                <td>Parent</td>
+                <%_}_%>
+                <%_ if(el.grade==2) {_%>
+                <td>Chef</td>
+                <%_}_%>
+                <%_ if(el.grade==3) {_%>
+                <td>Chef d u</td>
+                <%_}_%>
+                <td><a href="/user/<%=el._id%>">Editer</a></td>
+            </tr>
+            <%_ }); _%>
+        </tbody>
+    </table>
+</div>
+<% include ./footer.ejs %>

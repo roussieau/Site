@@ -1,0 +1,12 @@
+<% include ./header %>
+    <div class="container-fluid"/>
+    <h1>Edition</h1>
+    <form role="form" method="post">
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" name="nom" value="<%=user.nom%>">
+        </div>
+        <button type="submit" class="btn btn-default">Enregistrer</button>
+    </form>
+    </div>
+<% include ./footer %>
