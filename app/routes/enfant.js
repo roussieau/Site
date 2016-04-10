@@ -16,7 +16,7 @@ router.get('/', function(req, res, next){
     enfant.find().sort({nom:1}).exec(function(err, enfant){
         if (err) console.log(err);
         res.render('enfant',{
-            titre : "Les scouts | Les sections",
+            titre : "Les sections",
             log : req.user,
             section : req.section,
             enfant : enfant
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next){
 
 router.get('/add', function(req, res,next) {
     res.render('addEnfant',{
-        titre : "Les scouts | Ajouter un enfant",
+        titre : "Ajouter un enfant",
         log : req.user,
         section : req.section
     });

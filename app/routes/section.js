@@ -8,7 +8,7 @@ router.get('/', function(req, res,next) {
         res.redirect('/');
     }
     res.render('section',{
-        titre : "Les scouts | Les sections",
+        titre : "Les sections",
         log : req.user,
         section : req.section,
     });
@@ -19,7 +19,7 @@ router.get('/add', function(req, res,next) {
         res.redirect('/');
     }
     res.render('addSection',{
-        titre : "Les scouts | Créer une section",
+        titre : "Créer une section",
         log : req.user,
         section : req.section
     });

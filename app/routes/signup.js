@@ -5,7 +5,7 @@ var user = require('../models/user.js').user;
 
 router.get('/', function(req, res,next) {
   res.render('signup', {
-      titre: "Les scouts | Inscription",
+      titre: "Inscription",
       log : req.log,
       section: req.section
     });

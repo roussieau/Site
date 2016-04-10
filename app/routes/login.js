@@ -5,7 +5,7 @@ var passport = require('passport');
 
 router.get('/', function(req, res,next) {
   res.render('login', {
-      titre: "Les scouts | Connexion",
+      titre: "Connexion",
       log : req.log,
       section: req.section
     });

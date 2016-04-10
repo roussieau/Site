@@ -7,7 +7,7 @@ router.all('/', function(req, res,next) {
     page.findOne({nom : '/'},function(err, page){
         if(err) return handleError(err);
         res.render('showPage',{
-            titre : "Les scouts | Accueil",
+            titre : "Accueil",
             log : req.user,
             section : req.section,
             page : page
@@ -19,7 +19,7 @@ router.get('/edit', function(req, res, next){
     page.findOne({nom : '/'},function(err, page){
         if(err) return handleError(err);
         res.render('editPage',{
-            titre : "Les scouts | Accueil",
+            titre : "Edition",
             log : req.user,
             section : req.section,
             page : page
