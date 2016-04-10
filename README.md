@@ -1,3 +1,15 @@
-# Site web pour les scouts
-Dans le cadre du cour LSINF1212 à l'université catholique de louvain, nous sommes en train developper un site pour les réinscriptions.
-Test de l'intégration à slack
+# Développement d'un site avec Node.js, Express, Mongoose, Passport, ...
+Conception d'un site internet pour faciliter la gestion d'une unité scout. 
+
+# Architecture de l'application
+|_app
+| |_models
+| |_routes
+| |_views
+|_bin
+  |_bin
+|_config
+|_public
+|_app.js
+|_install.js
+|_package.json
