@@ -1,10 +1,24 @@
+'use strict';
 var express = require('express');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/db');
 var section = require('./app/models/section.js').section;
+var pageM = require('./app/models/page.js').page;
 
-var page = new section({nom:"THI"});
-page.save(function(err){
+var page = new pageM({nom : "/", titre : "Accueil"});
+page.save(function(err, page){
+	if(err) console.log(err);
+	console.log("Création de la page d'accueil -> OK !");
+});
+
+var page = new pageM({nom : "/contact/", titre : "Contact"});
+page.save(function(err, page){
+	if(err)console.log(err);
+	console.log("Création de la page de contact -> OK !");
+});
+
+var section = new section({nom:"Troupe de l'Harmonie Insolite"});
+section.save(function(err){
     if(err) return handleError(err);
-    console.log("Page d'accueil -> OK !");
+	console.log("Création d'une section -> OK !")
 });
