@@ -25,7 +25,7 @@
                             <%_ }); _%>
                         </ul>
                     </li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li <%if(titre == "Contact"){%> class="active"<%}%>><a href="/contact">Contact</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mon compte
                             <span class="caret"></span>
@@ -36,6 +36,11 @@
                             <li><a href="/login">Se connecter</a></li>
                             <%_ } else { _%>
                             <li><a href="/dashboard">Dashboard</a></li>
+							<% if(log.grade >=3) {_%>
+							<li><a href="/section">Section</a></li>
+							<li><a href="/user">Utilisateur</a></li>
+							<li><a href="/enfant">Enfants</a></li>
+							<%_ } _%>
                             <li><a href="/logout">Déconnexion</a></li>
                             <%_ } _%>
                         </lu>

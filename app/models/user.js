@@ -16,7 +16,8 @@ var userSchema = new Schema({
     },
     gsm : String,
     enfants : [Schema.ObjectId],
-    grade : {type : Number, default : 1}
+    grade : {type : Number, default : 1},
+	section : Schema.ObjectId
 });
 
 userSchema.methods.generateHash = function(password) {

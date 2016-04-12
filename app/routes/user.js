@@ -44,7 +44,15 @@ router.post('/:id', function(req, res) {
         if(err) return handleError(err);
         user.nom = req.body.nom;
 		user.grade = req.body.grade;
-        user.save();
+		if(req.body.sec){
+			user.section = req.body.sec;
+		}else{
+			user.section = null;
+		}
+        user.save(function(err, user){
+			if(err)console.log(err);
+			console.log(user);
+		});
     });
     res.redirect('/user');
 });

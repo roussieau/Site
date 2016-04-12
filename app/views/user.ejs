@@ -7,6 +7,7 @@
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Grade</th>
+				<th>Section</th>
                 <th></th>
             </tr>
         </thead>
@@ -24,6 +25,16 @@
                 <%_ if(el.grade==3) {_%>
                 <td>Admin</td>
                 <%_}_%>
+				<%_ if(el.section) {
+					section.forEach(function(sec){
+						if(sec.id==el.section.toString()){_%>
+							<td><%=sec.nom%></td>
+						<%_}
+					});
+				} else {_%>
+				<td></td>
+				<%_}_%>
+
                 <td><a href="/user/<%=el._id%>">Editer</a></td>
             </tr>
             <%_ }); _%>
