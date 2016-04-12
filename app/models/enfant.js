@@ -4,12 +4,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var enfantSchema = new Schema({
-    nom : String,
-    prenom : String,
-    totem : String,
-    sexe : String,
-    date : Date,
-    section : Schema.ObjectId,
+	nom : {type :String, required: true},
+    prenom : {type : String, required: true},
+    totem : {type : String, required: true},
+    sexe : {type : String, required: true},
+    date : {type : Date, required: true},
+    section : {type : Schema.ObjectId, required: true},
     statut : {type : Number, default : 1},
     commentaire : String
 });

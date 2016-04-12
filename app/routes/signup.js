@@ -3,6 +3,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var passport = require('passport');
 var user = require('../models/user.js').user;
 
 router.get('/', function(req, res,next) {
@@ -18,12 +19,18 @@ router.post('/', function(req, res,next) {
     current.nom = req.body.nom;
     current.prenom = req.body.prenom;
     current.email = req.body.email;
-    current.password = current.generateHash(req.body.pwd);
+    current.password = current.generateHash(req.body.password);
 
     current.save(function(err, user){
         if(err)return handleError(err);
         console.log(user);
     });
-    res.redirect('/');
+	next();
 });
+
+router.post('/',passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/login'
+}));
+
 module.exports = router;
