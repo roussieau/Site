@@ -18,6 +18,9 @@ router.all('/', function(req, res,next) {
 });
 
 router.get('/edit', function(req, res, next){
+	if(!req.user || req.user.grade <3){
+		res.redirect('/');
+	}
     page.findOne({nom : '/'},function(err, page){
         if(err) return handleError(err);
         res.render('editPage',{
@@ -30,6 +33,9 @@ router.get('/edit', function(req, res, next){
 });
 
 router.post('/edit', function(req, res, next){
+	if(!req.user || req.user.grade<3){
+		res.redirect('/');
+	}
     page.findOne({nom: '/' }, function (err, doc){
         doc.titre = req.body.titre;
         doc.body = req.body.contenu;

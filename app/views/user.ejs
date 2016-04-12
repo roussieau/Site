@@ -6,7 +6,7 @@
             <tr>
                 <th>Nom</th>
                 <th>Prénom</th>
-                <th>Status</th>
+                <th>Grade</th>
                 <th></th>
             </tr>
         </thead>
@@ -19,10 +19,10 @@
                 <td>Parent</td>
                 <%_}_%>
                 <%_ if(el.grade==2) {_%>
-                <td>Chef</td>
+                <td>Animateur</td>
                 <%_}_%>
                 <%_ if(el.grade==3) {_%>
-                <td>Chef d u</td>
+                <td>Admin</td>
                 <%_}_%>
                 <td><a href="/user/<%=el._id%>">Editer</a></td>
             </tr>

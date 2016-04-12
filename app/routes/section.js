@@ -4,7 +4,12 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var section = require('../models/section.js').section;
-
+router.use(function(req, res, next){
+	if(!req.user || req.user.grade <3){
+		res.redirect('/');
+	}
+	next();
+});
 router.get('/', function(req, res,next) {
     if(!req.user){
         res.redirect('/');
