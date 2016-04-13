@@ -63,7 +63,6 @@ app.use(methodOverride(function(req, res){
 }))
 
 app.use(set);
-app.use('/', routes);
 app.use('/signup', signup);
 app.use('/login', login);
 app.use('/logout', logout);
@@ -72,6 +71,7 @@ app.use('/contact', contact);
 app.use('/section', section);
 app.use('/enfant', enfant);
 app.use('/dashboard', dashboard);
+app.use('/', routes);
 
 //Erreur 404
 app.use(function(req, res) {

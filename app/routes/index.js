@@ -49,20 +49,17 @@ router.post('/edit', function(req, res, next){
 
 //Les sites des sections
 router.get('/:nom',function(req, res, next){
-	req.section.forEach(function(el){
+	req.section.forEach(function(el){ //On check si la section existe
 		if(el.nom == req.params.nom){
 			req.sectionId = el._id;
-			console.log("Match");
 		}
 	});
 	next();
 }, 
 function(req, res, next){
-	if(req.sectionId){
+	if(req.sectionId){ //Si la section existe, on envoi la vue
 		blog.find({section : req.sectionId}).limit(10).sort({date : 1}).exec(function(err, blog){
-			console.log("test2");
 			if(err) console.log(err);
-			if(!blog)console.log("ERREUR");
 			console.log("voici le blog :"+blog);
 			res.render('sectionBlog',{
 				titre : "Section",
@@ -73,9 +70,39 @@ function(req, res, next){
 			});	
 		});
 	}
+	else { //Sinon on passe au middleware suivant
+		next();
+	}
+});
+
+//Enregistrement du nouveau blog dans la base de donnée
+router.post('/:nom', function(req, res, next){
+	req.section.forEach(function(el){ //On check si la section existe
+		if(el.nom == req.params.nom){
+			req.sectionId = el._id;
+		}
+	});
+	next();
+},
+function(req, res, next){
+	if(req.sectionId){
+		if(req.user && ((req.user.section && req.sectionId.toString() == req.user.section.toString() && req.user.grade == 2) 
+		|| req.user.grade==3)) { //il faut être connecté et soit admin soit que ça soit notre section
+			var current = new blog({});
+			current.section = req.sectionId;
+			current.titre = req.body.titre;
+			current.body = req.body.body;
+			current.save(function(err){
+				if(err) console.log("Erreur lors de la création du blog");
+				else console.log("Nouveau blog -> OK !");
+			});
+		}
+		res.redirect('/'+req.params.nom);
+	}
 	else {
 		next();
 	}
 });
+
 
 module.exports = router;

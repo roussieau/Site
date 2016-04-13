@@ -1,17 +1,31 @@
 <% include ./header.ejs%>
 <div class="container">
-<% if(log && log.grade>=2 && log.section.toString() == id.toString()) { %>
-<form role="form" method="post">
-	<div class="form-group">
-		<label for="titre">Titre</label>
-		<input type="text" class="form-control" id="titre" name="titre">
-	</div>
-	<div class="form-group">
-		<label for="contenu">Corps</label>
-		<textarea class="form-control" rows="15" id="contenu" name="body"></textarea>
-	</div>
-	<button type="submit" class="btn btn-default">Enregistrer</button>
-</form>
+	<% if(log && ((log.grade == 2 && log.section.toString() == id.toString()) || log.grade == 3)) { %>
+	<h1 id="add"> Ajouter un article </h1>
+	<form style="display:none"role="form" method="post">
+		<div class="form-group">
+			<label for="titre">Titre</label>
+			<input type="text" class="form-control" id="titre" name="titre">
+		</div>
+		<div class="form-group">
+			<label for="contenu">Corps</label>
+			<textarea class="form-control" rows="15" id="contenu" name="body"></textarea>
+		</div>
+		<button type="submit" class="btn btn-default">Enregistrer</button>
+	</form>
+	<% } %>
+	<h1>Les articles </h1>
+	<%_ blog.forEach(function(el){ _%>
+		<h2><%=el.titre%></h2>
+		<%= el.body %>
+	<%_ }); _%>
 </div>
-<% } %>
 <% include ./footer.ejs %>
+<script> 
+$(document).ready(function(){
+	$("#add").click(function(){
+		$("form").slideToggle(200);
+	});
+});
+</script>
+
