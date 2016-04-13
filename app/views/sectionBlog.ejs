@@ -1,0 +1,17 @@
+<% include ./header.ejs%>
+<div class="container">
+<% if(log && log.grade>=2 && log.section.toString() == id.toString()) { %>
+<form role="form" method="post">
+	<div class="form-group">
+		<label for="titre">Titre</label>
+		<input type="text" class="form-control" id="titre" name="titre">
+	</div>
+	<div class="form-group">
+		<label for="contenu">Corps</label>
+		<textarea class="form-control" rows="15" id="contenu" name="body"></textarea>
+	</div>
+	<button type="submit" class="btn btn-default">Enregistrer</button>
+</form>
+</div>
+<% } %>
+<% include ./footer.ejs %>

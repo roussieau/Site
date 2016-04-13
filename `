@@ -52,30 +52,23 @@ router.get('/:nom',function(req, res, next){
 	req.section.forEach(function(el){
 		if(el.nom == req.params.nom){
 			req.sectionId = el._id;
-			console.log("Match");
+			next();
 		}
 	});
-	next();
+	next('route')
 }, 
 function(req, res, next){
-	if(req.sectionId){
-		blog.find({section : req.sectionId}).limit(10).sort({date : 1}).exec(function(err, blog){
-			console.log("test2");
-			if(err) console.log(err);
-			if(!blog)console.log("ERREUR");
-			console.log("voici le blog :"+blog);
-			res.render('sectionBlog',{
-				titre : "Section",
-				section : req.section,
-				log : req.user,
-				blog : blog,
-				id : req.sectionId
-			});	
-		});
-	}
-	else {
-		next();
-	}
+	blog.find({section : req.sectionId}).limit(10).sort({date : 1}).exec(function(err, blog){
+		if(err) console.log(err);
+		if(!blog){console.log("ERREUR"); next();}
+		console.log("voici le blog :"+blog);
+		res.render('sectionBlog',{
+			titre : "Section",
+			section : req.section,
+			log : req.user
+			//blog : blog
+		});	
+	});
 });
 
 module.exports = router;
