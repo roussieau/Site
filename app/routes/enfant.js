@@ -7,6 +7,7 @@ var enfant = require('../models/enfant.js').enfant;
 var section = require('../models/section.js').section;
 var user = require('../models/user.js').user;
 
+//L'utilisateur doit être connecté
 router.use(function(req, res, next){
     if(!req.user){
         res.redirect('/');
@@ -15,15 +16,18 @@ router.use(function(req, res, next){
 });
 
 router.get('/', function(req, res, next){
-    enfant.find().sort({nom:1}).exec(function(err, enfant){
-        if (err) console.log(err);
-        res.render('enfant',{
-            titre : "Les sections",
-            log : req.user,
-            section : req.section,
-            enfant : enfant
-        });
-    });
+	if(req.user.grade > 2){ //Il faut être admin pour voir tous les enfants
+		enfant.find().sort({nom:1}).exec(function(err, enfant){
+			if (err) console.log(err);
+			res.render('enfant',{
+				titre : "Les sections",
+				log : req.user,
+				section : req.section,
+				enfant : enfant
+			});
+		});
+	}
+	next();
 });
 
 router.get('/add', function(req, res,next) {
@@ -53,18 +57,21 @@ router.post('/add', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res) {
-    enfant.findById(req.params.id, function(err, enfant){
-        if(err) return handleError(err);
-        if(!enfant){
-            res.redirect('/dashboard');
-        }
-        res.render('editEnfant',{
-            titre : "Enfant",
-            log : req.user,
-            section : req.section,
-            enfant : enfant
-        });
-    });
+	if(req.user.grade >2){
+		enfant.findById(req.params.id, function(err, enfant){
+			if(err) return handleError(err);
+			if(!enfant){
+				res.redirect('/dashboard');
+			}
+			res.render('editEnfant',{
+				titre : "Enfant",
+				log : req.user,
+				section : req.section,
+				enfant : enfant
+			});
+		});
+	}
+	next();
 });
 
 router.post('/:id', function(req, res) {
