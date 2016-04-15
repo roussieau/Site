@@ -14,8 +14,7 @@ var auth = require('./config/passport.js');
 
 //Connection à la base de donnée
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/db');
-
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
 
 //Routes
 var routes = require('./app/routes/index');

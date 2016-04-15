@@ -1,7 +1,7 @@
 'use strict';
 var express = require('express');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/db');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
 var section = require('./app/models/section.js').section;
 var pageM = require('./app/models/page.js').page;
 var user = require('./app/models/user.js').user;
