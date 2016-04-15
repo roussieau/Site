@@ -40,54 +40,74 @@ router.get('/add', function(req, res,next) {
 });
 
 router.post('/add', function(req, res, next) {
-    var current = new enfant({});
-    current.nom = req.body.nom;
-    current.prenom = req.body.prenom;
-    current.totem = req.body.totem;
-    current.commentaire = req.body.commentaire;
-    current.section = req.body.sec;
-    user.findByIdAndUpdate(req.user._id,{$push : {enfants : current._id}},{'new': true},function(err, user){
-        if (err) error(res, err);
-    });
-    current.save(function(err, enfant){
-        if(err) error(res, err);
-        console.log("Nouvel enfant : \n" + enfant);
-        res.redirect('/');
-    });
+	if(req.body.nom && req.body.prenom && req.body.sec &&
+	req.body.jour && req.body.mois && req.body.annee &&
+	req.body.sexe) { //Ces champs doivent être complétés
+		console.log("Bad");
+		var current = new enfant({});
+		current.nom = req.body.nom;
+		current.prenom = req.body.prenom;
+		current.totem = req.body.totem;
+		current.date = new Date(req.body.annee+"-"+req.body.mois+"-"+req.body.jour);
+		current.sexe = req.body.sexe;
+		current.commentaire = req.body.commentaire;
+		current.section = req.body.sec;
+		user.findByIdAndUpdate(req.user._id,{$push : {enfants : current._id}},{'new': true},function(err, user){
+			if (err) error(res, err);
+		});
+		current.save(function(err, enfant){
+			if(err) error(res, err);
+			console.log("Nouvel enfant : \n" + enfant);
+		});
+	}
+	res.redirect('/');
 });
 
 //Modidication d'un enfants
 //Il faut être admin ou que ça soit le sien
 router.get('/:id', function(req, res, next) {
-	if(req.user.grade >2){
+	var bool = true;
+	if(req.user.grade >2 || inTab(req.user.enfants, req.params.id)){
 		enfant.findById(req.params.id, function(err, enfant){
 			if(err) error(res, err);
-			if(!enfant){
-				res.redirect('/dashboard');
+			if(enfant){
+				bool = false;
+				res.render('editEnfant',{
+					titre : "Enfant",
+					log : req.user,
+					section : req.section,
+					enfant : enfant
+				});
 			}
-			res.render('editEnfant',{
-				titre : "Enfant",
-				log : req.user,
-				section : req.section,
-				enfant : enfant
-			});
 		});
 	}
-	next();
+	if(bool)
+		next();
 });
 
 router.post('/:id', function(req, res) {
-    enfant.findByIdAndUpdate(req.params.id,{ $set : {
-        nom : req.body.nom,
-        prenom : req.body.prenom,
-        totem : req.body.totem,
-        section : req.body.sec,
-        commentaire : req.body.commentaire
-    }},{new: true},function(err, enfant){
-        if(err) error(res, err);
-        console.log("Enfant : \n" +enfant);
-    });
+	if(req.user.grade >2 || inTab(req.user.enfants, req.params.id)){
+		enfant.findByIdAndUpdate(req.params.id,{ $set : {
+			nom : req.body.nom,
+			prenom : req.body.prenom,
+			totem : req.body.totem,
+			section : req.body.sec,
+			commentaire : req.body.commentaire
+		}},{new: true},function(err, enfant){
+			if(err) error(res, err);
+			console.log("Enfant : \n" +enfant);
+		});
+	}
     res.redirect('/dashboard');
 });
+
+
+//Check si id est dans le tableau d'objectId
+function inTab(tab, id) {
+	var isInArray = tab.some(function (el) {
+    	return el.equals(id);
+	});
+	return isInArray;
+}
 
 module.exports = router;

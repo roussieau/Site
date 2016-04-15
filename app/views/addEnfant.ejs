@@ -4,29 +4,50 @@
         <div class="row">
             <form class="form-horizontal" role="form" method="post">
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="nom">Nom :</label>
+                        <label class="control-label col-sm-2" for="nom">Nom</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="nom" name="nom">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="prenom">Prénom :</label>
+                        <label class="control-label col-sm-2" for="prenom">Prénom</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="prenom" name="prenom">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="totem">Totem :</label>
+                        <label class="control-label col-sm-2" for="totem">Totem</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="totem" name="totem">
                         </div>
                     </div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="sexe">Sexe</label>
+						<div class="col-sm-10">
+							<label class="radio-inline"><input type="radio" id="sexe" name="sexe" value="M">M</label>
+							<label class="radio-inline"><input type="radio" id="sexe" name="sexe" value="F">F</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="anniversaire"> Date de naissance</label>
+						<div class="col-sm-10">
+							<div class="col-sm-2">
+								<input class="form-control" id="jour" type="text" placeholder="JJ" name="jour">
+							</div>
+							<div class="col-sm-2">
+								<input class="form-control" id="mois" type="text" placeholder="MM" name="mois">
+							</div>
+							<div class="col-sm-2">
+								<input class="form-control" id="annee" type="text" placeholder="AAAA" name="annee">
+							</div>
+						</div>
+					</div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="sec">Select list:</label>
+                        <label class="control-label col-sm-2" for="sec">Section</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="sec" name="sec">
                                 <%_ section.forEach(function(el){ _%>
-                                    <option value="<%=el.nom%>"><%=el.nom%></option>
+                                    <option value="<%=el._id%>"><%=el.nom%></option>
                                 <%_ });_%>
                             </select>
                         </div>
