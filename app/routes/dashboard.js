@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var enfant = require('../models/enfant.js').enfant;
+var error = require('../../error.js');
 
 //L'utilisateur doit être connecté
 router.use(function(req, res, next){
@@ -21,7 +22,7 @@ router.get('/',function(req, res, next){
     .select('nom prenom _id')
     .sort({prenom : 1})
     .exec(function(err, enfant){
-        if (err) console.log(err);
+        if (err) error(res, err);
         local.enfant = enfant;
         console.log(local.enfant);
         res.render('dashboard', {
@@ -29,7 +30,7 @@ router.get('/',function(req, res, next){
             log : req.user,
             section : req.section,
             local : local
-        })
+        });
     });
 });
 

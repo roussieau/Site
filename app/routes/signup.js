@@ -5,6 +5,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var passport = require('passport');
 var user = require('../models/user.js').user;
+var error = require('../../error.js');
 
 router.get('/', function(req, res,next) {
   res.render('signup', {
@@ -22,7 +23,7 @@ router.post('/', function(req, res,next) {
     current.password = current.generateHash(req.body.password);
 
     current.save(function(err, user){
-        if(err)return handleError(err);
+        if(err) error(res, err);
         console.log(user);
     });
 	next();

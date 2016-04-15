@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var user = require('../models/user.js').user;
+var error = require('../../error.js');
 
 //Il faut être admin
 router.use(function(req, res, next){
@@ -15,7 +16,7 @@ router.use(function(req, res, next){
 
 router.get('/', function(req, res,next) {
     user.find().sort({nom:1}).exec(function(err, user){
-        if (err) return handleError(err);
+        if (err) error(res, err);
         res.render('user',{
             titre : "User",
             log : req.user,
@@ -27,7 +28,7 @@ router.get('/', function(req, res,next) {
 
 router.get('/:id', function(req, res) {
     user.findById(req.params.id, function(err, user){
-        if(err) return handleError(err);
+        if(err) error(res, err);
         if(!user){
             res.redirect('/user');
         }
@@ -42,7 +43,7 @@ router.get('/:id', function(req, res) {
 
 router.post('/:id', function(req, res) {
     user.findById(req.params.id, function(err, user){
-        if(err) return handleError(err);
+        if(err) error(res, err);
         user.nom = req.body.nom;
 		user.grade = req.body.grade;
 		if(req.body.sec){
@@ -51,7 +52,7 @@ router.post('/:id', function(req, res) {
 			user.section = null;
 		}
         user.save(function(err, user){
-			if(err)console.log(err);
+			if(err)error(res, err);
 			console.log(user);
 		});
     });

@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var enfant = require('../models/enfant.js').enfant;
 var section = require('../models/section.js').section;
 var user = require('../models/user.js').user;
+var error = require('../../error.js');
 
 //L'utilisateur doit être connecté
 router.use(function(req, res, next){
@@ -18,7 +19,7 @@ router.use(function(req, res, next){
 router.get('/', function(req, res, next){
 	if(req.user.grade > 2){ //Il faut être admin pour voir tous les enfants
 		enfant.find().sort({nom:1}).exec(function(err, enfant){
-			if (err) console.log(err);
+			if(err) error(res, err);
 			res.render('enfant',{
 				titre : "Les sections",
 				log : req.user,
@@ -46,11 +47,10 @@ router.post('/add', function(req, res, next) {
     current.commentaire = req.body.commentaire;
     current.section = req.body.sec;
     user.findByIdAndUpdate(req.user._id,{$push : {enfants : current._id}},{'new': true},function(err, user){
-        if (err) console.log(err);
-        console.log(user);
+        if (err) error(res, err);
     });
     current.save(function(err, enfant){
-        if(err) return console.log(err);
+        if(err) error(res, err);
         console.log("Nouvel enfant : \n" + enfant);
         res.redirect('/');
     });
@@ -58,10 +58,10 @@ router.post('/add', function(req, res, next) {
 
 //Modidication d'un enfants
 //Il faut être admin ou que ça soit le sien
-router.get('/:id', function(req, res) {
+router.get('/:id', function(req, res, next) {
 	if(req.user.grade >2){
 		enfant.findById(req.params.id, function(err, enfant){
-			if(err) return handleError(err);
+			if(err) error(res, err);
 			if(!enfant){
 				res.redirect('/dashboard');
 			}
@@ -84,7 +84,7 @@ router.post('/:id', function(req, res) {
         section : req.body.sec,
         commentaire : req.body.commentaire
     }},{new: true},function(err, enfant){
-        if(err) return console.log(err);
+        if(err) error(res, err);
         console.log("Enfant : \n" +enfant);
     });
     res.redirect('/dashboard');

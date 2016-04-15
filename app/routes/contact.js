@@ -4,10 +4,11 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var page = require('../models/page.js').page;
+var error = require('../../error.js');
 
 router.get('/', function(req, res,next) {
     page.findOne({nom : '/contact/'},function(err, page){
-        if(err) return handleError(err);
+        if(err) error(res, err);
         res.render('showPage',{
             titre : "Contact",
             log : req.user,
@@ -24,7 +25,7 @@ router.get('/edit', function(req, res, next){
 		res.redirect('/');
 	}
     page.findOne({nom : '/contact/'},function(err, page){
-        if(err) return handleError(err);
+        if(err) return error(res, err);
         res.render('editPage',{
             titre : "Edition",
             log : req.user,

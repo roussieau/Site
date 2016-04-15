@@ -5,11 +5,12 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var page = require('../models/page.js').page;
 var blog = require('../models/blog.js').blog;
+var error = require('../../error.js');
 
 //On charge la page d'accueil
 router.all('/', function(req, res,next) {
     page.findOne({nom : '/'},function(err, page){
-        if(err) return handleError(err);
+        if(err) error(res, err);
         res.render('showPage',{
             titre : "Accueil",
             log : req.user,
@@ -25,7 +26,7 @@ router.get('/edit', function(req, res, next){
 		res.redirect('/');
 	}
     page.findOne({nom : '/'},function(err, page){
-        if(err) return handleError(err);
+        if(err) error(res, err);
         res.render('editPage',{
             titre : "Edition",
             log : req.user,
@@ -60,8 +61,7 @@ router.get('/:nom',function(req, res, next){
 function(req, res, next){
 	if(req.sectionId){ //Si la section existe, on envoi la vue
 		blog.find({section : req.sectionId}).limit(10).sort({date : 1}).exec(function(err, blog){
-			if(err) console.log(err);
-			console.log("voici le blog :"+blog);
+			if(err) error(res, err);
 			res.render('sectionBlog',{
 				titre : "Section",
 				section : req.section,
@@ -87,14 +87,14 @@ router.post('/:nom', function(req, res, next){
 },
 function(req, res, next){
 	if(req.sectionId){
-		if(req.user && ((req.user.section && req.sectionId.toString() == req.user.section.toString() && req.user.grade == 2) 
-		|| req.user.grade==3)) { //il faut être connecté et soit admin soit que ça soit notre section
+		if(req.user && ((req.user.section && req.sectionId.toString() == req.user.section.toString() && req.user.grade == 2) ||
+		req.user.grade==3)) { //il faut être connecté et soit admin soit que ça soit notre section
 			var current = new blog({});
 			current.section = req.sectionId;
 			current.titre = req.body.titre;
 			current.body = req.body.body;
 			current.save(function(err){
-				if(err) console.log("Erreur lors de la création du blog");
+				if(err) error(res, err); 
 				else console.log("Nouveau blog -> OK !");
 			});
 		}
