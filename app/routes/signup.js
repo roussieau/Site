@@ -22,7 +22,7 @@ router.post('/', function(req, res,next) {
 		var current = new user({});
 		current.nom = req.body.nom;
 		current.prenom = req.body.prenom;
-		current.email = validato.normalizeEmail(req.body.email,{lowercase: true});
+		current.email = validator.normalizeEmail(req.body.email,{lowercase: true});
 		current.password = current.generateHash(req.body.password);
 
 		current.save(function(err, user){

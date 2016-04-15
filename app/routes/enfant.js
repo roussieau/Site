@@ -67,7 +67,6 @@ router.post('/add', function(req, res, next) {
 //Modidication d'un enfants
 //Il faut être admin ou que ça soit le sien
 router.get('/:id', function(req, res, next) {
-	var bool = true;
 	if(req.user.grade >2 || inTab(req.user.enfants, req.params.id)){
 		enfant.findById(req.params.id, function(err, enfant){
 			if(err) error(res, err);
@@ -80,9 +79,11 @@ router.get('/:id', function(req, res, next) {
 					enfant : enfant
 				});
 			}
+			else
+				next();
 		});
 	}
-	if(bool)
+	else 
 		next();
 });
 
