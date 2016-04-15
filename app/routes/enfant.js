@@ -56,6 +56,8 @@ router.post('/add', function(req, res, next) {
     });
 });
 
+//Modidication d'un enfants
+//Il faut être admin ou que ça soit le sien
 router.get('/:id', function(req, res) {
 	if(req.user.grade >2){
 		enfant.findById(req.params.id, function(err, enfant){

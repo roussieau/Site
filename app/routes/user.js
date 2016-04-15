@@ -5,6 +5,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var user = require('../models/user.js').user;
 
+//Il faut être admin
 router.use(function(req, res, next){
     if(!req.user || req.user.grade<3){
         res.redirect('/');

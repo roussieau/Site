@@ -28,6 +28,7 @@ router.post('/', function(req, res,next) {
 	next();
 });
 
+//Connexion automatique après l'inscription
 router.post('/',passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/login'

@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var page = require('../models/page.js').page;
 var blog = require('../models/blog.js').blog;
 
+//On charge la page d'accueil
 router.all('/', function(req, res,next) {
     page.findOne({nom : '/'},function(err, page){
         if(err) return handleError(err);
@@ -103,6 +104,5 @@ function(req, res, next){
 		next();
 	}
 });
-
 
 module.exports = router;

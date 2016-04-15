@@ -17,6 +17,8 @@ router.get('/', function(req, res,next) {
     });
 });
 
+//Edition de la page contact
+//Il faut être admin (grade 3)
 router.get('/edit', function(req, res, next){
 	if(!req.user || req.user.grade<3){
 		res.redirect('/');

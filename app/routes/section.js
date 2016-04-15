@@ -4,6 +4,8 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var section = require('../models/section.js').section;
+
+//Il faut être admin 
 router.use(function(req, res, next){
 	if(!req.user || req.user.grade <3){
 		res.redirect('/');
@@ -22,9 +24,6 @@ router.get('/', function(req, res,next) {
 });
 
 router.get('/add', function(req, res,next) {
-    if(!req.user){
-        res.redirect('/');
-    }
     res.render('addSection',{
         titre : "Créer une section",
         log : req.user,
@@ -33,9 +32,6 @@ router.get('/add', function(req, res,next) {
 });
 
 router.post('/add', function(req, res,next) {
-    if(!req.user){
-        res.redirect('/');
-    }
     var current = new section({nom : req.body.section});
     current.save(function(err,section){
         if(err) return handleError(err);

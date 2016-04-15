@@ -13,6 +13,7 @@ router.use(function(req, res, next){
     next();
 });
 
+//On récupère les enfants 
 router.get('/',function(req, res, next){
     var local = {};
     console.log(req.user);
