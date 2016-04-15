@@ -60,7 +60,7 @@ router.get('/:nom',function(req, res, next){
 }, 
 function(req, res, next){
 	if(req.sectionId){ //Si la section existe, on envoi la vue
-		blog.find({section : req.sectionId}).limit(10).sort({date : 1}).exec(function(err, blog){
+		blog.find({section : req.sectionId}).limit(10).sort({date : -1}).exec(function(err, blog){
 			if(err) error(res, err);
 			res.render('sectionBlog',{
 				titre : "Section",

@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var user = require('../models/user.js').user;
 var error = require('../../error.js');
+var validator = require('validator');
 
 router.get('/', function(req, res,next) {
   res.render('signup', {
@@ -16,16 +17,19 @@ router.get('/', function(req, res,next) {
 });
 
 router.post('/', function(req, res,next) {
-    var current = new user({});
-    current.nom = req.body.nom;
-    current.prenom = req.body.prenom;
-    current.email = req.body.email;
-    current.password = current.generateHash(req.body.password);
+	if(req.body.nom && req.body.prenom && req.body.email &&
+	req.body.password && validator.isEmail(req.body.email)){
+		var current = new user({});
+		current.nom = req.body.nom;
+		current.prenom = req.body.prenom;
+		current.email = validato.normalizeEmail(req.body.email,{lowercase: true});
+		current.password = current.generateHash(req.body.password);
 
-    current.save(function(err, user){
-        if(err) error(res, err);
-        console.log(user);
-    });
+		current.save(function(err, user){
+			if(err) error(res, err);
+			console.log(user);
+		});
+	}
 	next();
 });
 
