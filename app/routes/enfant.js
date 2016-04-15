@@ -10,10 +10,10 @@ var error = require('../../error.js');
 
 //L'utilisateur doit être connecté
 router.use(function(req, res, next){
-    if(!req.user){
+    if(!req.user)
         res.redirect('/');
-    }
-    next();
+	else 
+    	next();
 });
 
 router.get('/', function(req, res, next){
@@ -28,7 +28,8 @@ router.get('/', function(req, res, next){
 			});
 		});
 	}
-	next();
+	else 
+		next();
 });
 
 router.get('/add', function(req, res,next) {
