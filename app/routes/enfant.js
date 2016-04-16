@@ -71,7 +71,6 @@ router.get('/:id', function(req, res, next) {
 		enfant.findById(req.params.id, function(err, enfant){
 			if(err) error(res, err);
 			if(enfant){
-				bool = false;
 				res.render('editEnfant',{
 					titre : "Enfant",
 					log : req.user,
