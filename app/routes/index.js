@@ -11,12 +11,7 @@ var error = require('../../error.js');
 router.all('/', function(req, res,next) {
     page.findOne({nom : '/'},function(err, page){
         if(err) error(res, err);
-        res.render('showPage',{
-            titre : "Accueil",
-            log : req.user,
-            section : req.section,
-            page : page
-        });
+        res.json(page);
     });
 });
 
@@ -57,7 +52,7 @@ router.get('/:nom',function(req, res, next){
 		}
 	});
 	next();
-}, 
+},
 function(req, res, next){
 	if(req.sectionId){ //Si la section existe, on envoi la vue
 		blog.find({section : req.sectionId}).limit(10).sort({date : -1}).exec(function(err, blog){
@@ -68,7 +63,7 @@ function(req, res, next){
 				log : req.user,
 				blog : blog,
 				id : req.sectionId
-			});	
+			});
 		});
 	}
 	else { //Sinon on passe au middleware suivant
@@ -94,7 +89,7 @@ function(req, res, next){
 			current.titre = req.body.titre;
 			current.body = req.body.body;
 			current.save(function(err){
-				if(err) error(res, err); 
+				if(err) error(res, err);
 				else console.log("Nouveau blog -> OK !");
 			});
 		}

@@ -9,12 +9,7 @@ var error = require('../../error.js');
 router.get('/', function(req, res,next) {
     page.findOne({nom : '/contact/'},function(err, page){
         if(err) error(res, err);
-        res.render('showPage',{
-            titre : "Contact",
-            log : req.user,
-            section : req.section,
-            page : page
-        });
+        res.json(page);
     });
 });
 

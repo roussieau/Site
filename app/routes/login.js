@@ -14,8 +14,7 @@ router.get('/', function(req, res,next) {
 });
 
 //Connexion via passportjs, la configuration se trouve dans ../../config/passport.js
-router.post('/',passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login'
-}));
+router.post('/',passport.authenticate('local'), function(req, res, next){
+	res.json(req.user);
+});
 module.exports = router;

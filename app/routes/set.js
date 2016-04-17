@@ -7,11 +7,10 @@ var section = require('../models/section.js').section;
 var error = require('../../error.js');
 
 //On va charger les différentes sections, pour les mettre dans le menu
-router.use(function(req, res, next){
+router.get('/',function(req, res, next){
     section.find().sort({nom : 1}).exec(function(err, section){
         if(err) error(res, err);
-        req.section = section;
-        next();
+        res.json(section);
     });
 });
 

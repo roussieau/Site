@@ -61,17 +61,20 @@ app.use(methodOverride(function(req, res){
   }
 }));
 
-app.use(set);
-app.use('/signup', signup);
-app.use('/login', login);
-app.use('/logout', logout);
-app.use('/user', user);
-app.use('/contact', contact);
-app.use('/section', section);
-app.use('/enfant', enfant);
-app.use('/dashboard', dashboard);
-app.use('/', routes);
 
+app.use('/api/getSection',set);
+app.use('/api/signup', signup);
+app.use('/api/login', login);
+app.use('/api/logout', logout);
+app.use('/api/user', user);
+app.use('/api/contact', contact);
+app.use('/api/section', section);
+app.use('/api/enfant', enfant);
+app.use('/api/dashboard', dashboard);
+app.use('/api', routes);
+app.get('*', function(req, res){
+    res.sendFile(path.join(__dirname, '/public/views/index.html'));
+});
 //Erreur 404
 app.use(function(req, res) {
     res.render('404',{
