@@ -8,9 +8,12 @@ var error = require('../../error.js');
 
 //On va charger les différentes sections, pour les mettre dans le menu
 router.get('/',function(req, res, next){
+	var local = {};
     section.find().sort({nom : 1}).exec(function(err, section){
         if(err) error(res, err);
-        res.json(section);
+        local.section = section;
+		local.user = req.user;
+		res.json(local);
     });
 });
 

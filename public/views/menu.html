@@ -23,7 +23,8 @@
                     <li><a ui-sref="login">Se connecter</a></li>
                 </ul>
                 <ul class="dropdown-menu" data-ng-if="user">
-                    <li><a href="/dashboard">Dashboard</a></li>
+					<li><a href="/dashboard">Dashboard</a></li>
+					<li data-ng-if="user.grade >2"><a href="section">section</a></li>
                 </ul>
             </li>
         </ul>

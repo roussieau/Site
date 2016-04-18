@@ -39,8 +39,8 @@ router.post('/edit', function(req, res, next){
         doc.titre = req.body.titre;
         doc.body = req.body.contenu;
         doc.save();
-        res.redirect('/');
-    });
+        res.end()
+	});
 
 });
 

@@ -1,0 +1,15 @@
+<div ng-controller="edit"/>
+	<h1>Edition</h1>
+	<form role="form">
+		<div class="form-group">
+			<label for="titre">Titre</label>
+			<input type="text" class="form-control" id="titre" value="{{page.titre}}" ng-model="edit.titre">
+		</div>
+		<div class="form-group">
+			<label for="contenu">Corps</label>
+			<textarea class="form-control" rows="15" id="contenu" ng-model="edit.body">{{page.body}}</textarea>
+		</div>
+		<button type="submit" ng-click="edit()"class="btn btn-default">Enregistrer</button>
+	</form>
+</div>
+

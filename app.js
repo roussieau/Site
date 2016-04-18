@@ -62,7 +62,7 @@ app.use(methodOverride(function(req, res){
 }));
 
 
-app.use('/api/getSection',set);
+app.use('/api/get',set);
 app.use('/api/signup', signup);
 app.use('/api/login', login);
 app.use('/api/logout', logout);
