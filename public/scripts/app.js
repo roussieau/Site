@@ -5,7 +5,6 @@ var app = angular.module('myApp', ['ui.router']);
 //Routage coté client
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/euh');
-
     $stateProvider
 	//Page d'accueil
     .state('home', {
@@ -24,12 +23,19 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         url: '/login',
         templateUrl: '../views/login.html'
     })
-    .state('contact', {
+
+	//Contact
+	.state('contact', {
         url: '/contact',
         templateUrl: '../views/page.html',
         controller: 'contact'
+    })
+	.state('contactEdit', {
+        url: '/contact/edit',
+        templateUrl: '../views/editPage.html',
+        controller: ''
     });
-	
+
 	$locationProvider.html5Mode({
 		enabled: true,
 		requireBase: false
@@ -51,22 +57,23 @@ app.controller('home',function($scope, $http, $rootScope){
     .then(function(reponse){
         $rootScope.header = "Accueil";
         $scope.page = reponse.data;
+		$scope.edit = "/edit";
     });
 });
 
-app.controller('edit', function($http, $location, $scope){
-	console.log("test");
-	$http.get('/api')
-	.then(function(reponse){
-		$scope.page = reponse.data;
+app.controller('edit',['$location', '$scope', '$http', function($location, $scope, $http){
+	$http.get('/api').then(function(reponse){
+		$scope.titre = reponse.data.titre;
+		$scope.body = reponse.data.body;
 	});
 	$scope.edit = function(){
-		$http.post('/api/edit', $scope.edit)
+		$http.post('/api', {titre : $scope.titre, body : $scope.body})
 		.then(function(reponse){
+			console.log(reponse);
 			$location.path('/');
 		});
 	};
-});
+}]);
 
 app.controller('contact',function($rootScope, $scope, $http){
 	$rootScope.header = "Contact";

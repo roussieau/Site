@@ -32,14 +32,14 @@ router.get('/edit', function(req, res, next){
 });
 
 router.post('/edit', function(req, res, next){
-	if(!req.user || req.user.grade<3){
-		res.redirect('/');
-	}
     page.findOne({nom: '/' }, function (err, doc){
+		console.log(req.body);
         doc.titre = req.body.titre;
-        doc.body = req.body.contenu;
-        doc.save();
-        res.end()
+        doc.body = req.body.body;
+        doc.save(function(err, page){
+			if(err) console.log(err);
+			res.json(doc);
+		});
 	});
 
 });
