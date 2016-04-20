@@ -16,21 +16,12 @@ router.use(function(req, res, next){
 
 //On récupère les enfants 
 router.get('/',function(req, res, next){
-    var local = {};
-    console.log(req.user);
     enfant.find({ _id : { $in : req.user.enfants}})
     .select('nom prenom _id')
     .sort({prenom : 1})
     .exec(function(err, enfant){
         if (err) error(res, err);
-        local.enfant = enfant;
-        console.log(local.enfant);
-        res.render('dashboard', {
-            titre : "Dashboard",
-            log : req.user,
-            section : req.section,
-            local : local
-        });
+		res.json(enfant);
     });
 });
 

@@ -18,11 +18,23 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 		controller: 'edit'
 	})
 
+	//Dashboard
+	.state('dashboard',{
+		url:'/dashboard',
+		templateUrl:'../views/dashboard.html',
+		controller: 'dashboard'
+	})
+
 	//Connexion
     .state('login', {
         url: '/login',
         templateUrl: '../views/login.html'
     })
+
+	.state('logout',{
+		url: '/logout',
+		controller: 'logout'
+	})
 
 	//Contact
 	.state('contact', {
@@ -34,7 +46,14 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         url: '/contact/edit',
         templateUrl: '../views/editPage.html',
         controller: ''
-    });
+    })
+	
+	//Blog
+	.state('blog',{
+		url(/:nom),
+		templateUrl: 'blog',
+		controller : 'blog',
+	});
 
 	$locationProvider.html5Mode({
 		enabled: true,
@@ -51,7 +70,7 @@ app.controller('menu', function($rootScope, $scope, $http){
 	});
 });
 
-//Récupère les infos de la page d'accueil
+//Controlleur accueil
 app.controller('home',function($scope, $http, $rootScope){
     $http.get('/api')
     .then(function(reponse){
@@ -75,6 +94,18 @@ app.controller('edit',['$location', '$scope', '$http', function($location, $scop
 	};
 }]);
 
+//Controlleur dashboard
+app.controller('dashboard', function($scope, $http){
+	$http.get('/api/dashboard').then(function(reponse){
+		$scope.enfant = reponse.data;
+	});
+});
+
+app.controller('blog', function(){
+
+});
+
+
 app.controller('contact',function($rootScope, $scope, $http){
 	$rootScope.header = "Contact";
     $http.get('/api/contact')
@@ -83,6 +114,7 @@ app.controller('contact',function($rootScope, $scope, $http){
     });
 });
 
+//Connexion
 app.controller('login', function($rootScope, $scope, $http, $location){
 	$scope.connection = function(){
 		$http.post('/api/login', $scope.log)
@@ -91,4 +123,12 @@ app.controller('login', function($rootScope, $scope, $http, $location){
 			$location.path('/');
 		});
 	};
+});
+
+//Déconnexion
+app.controller('logout', function($http, $location, $rootScope){
+	$http.get('/api/logout').then(function(){
+		$rootScope.user = null;
+		$location.path('/');
+	});	
 });

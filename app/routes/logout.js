@@ -6,7 +6,7 @@ var router = express.Router();
 //Déconnexion de passportjs
 router.get('/', function(req, res,next) {
   req.logout();
-  res.redirect('/');
+  res.end();
 });
 
 module.exports = router;
