@@ -9,26 +9,26 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 	//Page d'accueil
     .state('home', {
         url: '/',
-        templateUrl: '../views/page.html',
+        templateUrl: '../views/home/homePage.html',
         controller: 'home'
     })
 	.state('homeEdit',{
 		url:'/edit',
-		templateUrl: '../views/editPage.html',
+		templateUrl: '../views/home/homeEdit.html',
 		controller: 'edit'
 	})
 
 	//Dashboard
 	.state('dashboard',{
 		url:'/dashboard',
-		templateUrl:'../views/dashboard.html',
+		templateUrl:'../views/user/dashboard.html',
 		controller: 'dashboard'
 	})
 
 	//Connexion
     .state('login', {
         url: '/login',
-        templateUrl: '../views/login.html'
+        templateUrl: '../views/user/login.html'
     })
 
 	.state('logout',{
@@ -39,14 +39,14 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 	//Contact
 	.state('contact', {
         url: '/contact',
-        templateUrl: '../views/page.html',
+        templateUrl: '../views/contact/contactPage.html',
         controller: 'contact'
     })
 	.state('contactEdit', {
         url: '/contact/edit',
-        templateUrl: '../views/editPage.html',
-        controller: ''
-    })
+        templateUrl: '../views/contact/contactEdit.html',
+        controller: 'contactEdit'
+    });
 	
 	//Blog
 	/*.state('blog',{
@@ -90,6 +90,29 @@ app.controller('edit',['$location', '$scope', '$http', function($location, $scop
 		.then(function(reponse){
 			console.log(reponse);
 			$location.path('/');
+		});
+	};
+}]);
+
+//Contact
+app.controller('contact', function($scope, $http){
+	$http.get('/api/contact')
+	.then(function(reponse){
+		$scope.page.titre = reponse.data.titre;
+		$scope.page.body = repoonse.data.body;
+	});
+});
+//Edition
+app.controller('contactEdit',['$location', '$scope', '$http', function($location, $scope, $http){
+	$http.get('/api/contact').
+	then(function(reponse){
+		$scope.titre = reponse.data.titre;
+		$scope.body = reponse.data.body;
+	});
+	$scope.edit = function(){
+		$http.post('/api/contact/edit', {titre : $scope.titre, body : $scope.body})
+		.then(function(){
+			$location.path('/contact');
 		});
 	};
 }]);

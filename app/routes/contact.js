@@ -31,14 +31,11 @@ router.get('/edit', function(req, res, next){
 });
 
 router.post('/edit', function(req, res, next){
-	if(!req.user || req.user.grade<3){
-		res.redirect('/');
-	}
     page.findOne({nom: '/contact/' }, function (err, doc){
         doc.titre = req.body.titre;
-        doc.body = req.body.contenu;
+        doc.body = req.body.body;
         doc.save();
-        res.redirect('/contact');
+        res.end();
     });
 
 });
