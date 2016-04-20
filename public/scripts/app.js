@@ -49,11 +49,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     })
 	
 	//Blog
-	.state('blog',{
+	/*.state('blog',{
 		url(/:nom),
 		templateUrl: 'blog',
 		controller : 'blog',
-	});
+	});*/
 
 	$locationProvider.html5Mode({
 		enabled: true,
