@@ -46,14 +46,14 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         url: '/contact/edit',
         templateUrl: '../views/contact/contactEdit.html',
         controller: 'contactEdit'
-    });
+    })
 	
 	//Blog
-	/*.state('blog',{
-		url(/:nom),
-		templateUrl: 'blog',
+	.state('blog',{
+		url: '/:nom',
+		templateUrl: '../views/section/blog.html',
 		controller : 'blog',
-	});*/
+	});
 
 	$locationProvider.html5Mode({
 		enabled: true,
@@ -124,8 +124,8 @@ app.controller('dashboard', function($scope, $http){
 	});
 });
 
-app.controller('blog', function(){
-
+app.controller('blog', function($scope, $stateParams){
+	$scope.test = $stateParams.nom;
 });
 
 
