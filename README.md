@@ -2,3 +2,5 @@
 Conception d'un site internet pour faciliter la gestion d'une unité scout. 
 
 Construction du site en SPA 
+
+Actuellement, il y a un problème de double injection ! 
