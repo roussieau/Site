@@ -7,18 +7,18 @@ var app = angular.module('myApp', ['ui.router',
                                     'section']);
 
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/euh');
+    $urlRouterProvider.otherwise('home');
     $stateProvider
     //Page d'accueil
     .state('home', {
         url: '/',
-        templateUrl: './views/homePage.html',
+        templateUrl: 'modules/home/views/homePage.html',
         controller: 'home'
     })
     //Edition de la page d'accueil
     .state('homeEdit',{
 		url:'/edit',
-		templateUrl: './views/homeEdit.html',
+		templateUrl: 'modules/home/views/homeEdit.html',
 		controller: 'edit'
 	});
 

@@ -7,13 +7,13 @@ app.config(function($stateProvider) {
     //Page de contact
     .state('contact', {
         url: '/contact',
-        templateUrl: './views/contactPage.html',
+        templateUrl: 'modules/contact/views/contactPage.html',
         controller: 'contact'
     })
     //Edition de la page de contact
 	.state('contactEdit', {
         url: '/contact/edit',
-        templateUrl: './views/contactEdit.html',
+        templateUrl: 'modules/contact/views/contactEdit.html',
         controller: 'contactEdit'
     });
 });
@@ -23,8 +23,8 @@ app.controller('contact', ['$scope', '$http',
     function($scope, $http){
     	$http.get('/api/contact')
     	.then(function(reponse){
-    		$scope.page.titre = reponse.data.titre;
-    		$scope.page.body = reponse.data.body;
+    		$scope.titre = reponse.data.titre;
+    		$scope.body = reponse.data.body;
     	});
     }
 ]);

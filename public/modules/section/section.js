@@ -6,7 +6,7 @@ app.config(function($stateProvider) {
     $stateProvider
     .state('blog',{
 		url: '/:nom',
-		templateUrl: './views/blog.html',
+		templateUrl: 'modules/section/views/blog.html',
 		controller : 'blog',
 	});
 });

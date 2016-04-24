@@ -7,17 +7,17 @@ app.config(function($stateProvider) {
     //Bureau virtuel
     .state('dashboard',{
 		url:'/dashboard',
-		templateUrl:'./views/dashboard.html',
+		templateUrl:'modules/user/views/dashboard.html',
 		controller: 'dashboard'
 	})
     //Connexion
     .state('login', {
         url: '/login',
-        templateUrl: './views/login.html'
+        templateUrl: 'modules/user/views/login.html'
     })
     //Déconnexion
 	.state('logout',{
-		url: '/logout',
+		url: 'logout',
 		controller: 'logout'
 	});
 });
