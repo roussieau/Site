@@ -7,7 +7,8 @@ var app = angular.module('myApp', ['ui.router',
                                     'section']);
 
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('home');
+    $urlRouterProvider.otherwise('/'):
+	$urlRouterProvider.when('', '/');
     $stateProvider
     //Page d'accueil
     .state('home', {
