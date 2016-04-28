@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var section = require('../models/section.js').section;
 var error = require('../../error.js');
 
-//Il faut être admin 
+//Il faut être admin
 router.use(function(req, res, next){
 	if(!req.user || req.user.grade <3){
 		res.redirect('/');
