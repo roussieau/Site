@@ -1,10 +1,10 @@
 'use strict';
 
 var app = angular.module('myApp', ['ui.router',
-                                    'section',
                                     'base',
                                     'contact',
-                                    'user'
+                                    'user',
+									'section'
                                     ]);
 
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {

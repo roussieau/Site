@@ -8,10 +8,17 @@ app.config(function($stateProvider) {
 
     .state('contact', {
         url: '/contact',
+		abstract: true,
 		template: '<ui-view></ui-view>'
         //templateUrl: 'modules/contact/views/contactPage.html',
         //controller: 'contact'
     })
+	.state('contact.list', {
+        url: '',
+		templateUrl: 'modules/contact/views/contactPage.html',
+        controller: 'contact'
+    })
+
     //Edition de la page de contact
 		.state('contact.edit', {
 		url: '/edit',
