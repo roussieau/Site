@@ -72,6 +72,7 @@ app.use('/api/section', section);
 app.use('/api/enfant', enfant);
 app.use('/api/dashboard', dashboard);
 app.use('/api', routes);
+console.log("bad");
 app.get('*', function(req, res){
     res.sendFile(path.join(__dirname, '/public/modules/base/views/index.html'));
 });

@@ -5,16 +5,17 @@ var app = angular.module('contact', ['ui.router']);
 app.config(function($stateProvider) {
     $stateProvider
     //Page de contact
-	
+
     .state('contact', {
         url: '/contact',
-        templateUrl: 'modules/contact/views/contactPage.html',
-        controller: 'contact'
+		template: '<ui-view></ui-view>'
+        //templateUrl: 'modules/contact/views/contactPage.html',
+        //controller: 'contact'
     })
     //Edition de la page de contact
-	.state('contact.edit', {
-        url: '/edit',
-        templateUrl: 'modules/contact/views/contactEdit.html',
+		.state('contact.edit', {
+		url: '/edit',
+        templateUrl: '/modules/contact/views/contactEdit.html',
         controller: 'contactEdit'
     });
 });

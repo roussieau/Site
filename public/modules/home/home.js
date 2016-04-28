@@ -1,14 +1,16 @@
 'use strict';
 
 var app = angular.module('myApp', ['ui.router',
+                                    'section',
                                     'base',
                                     'contact',
-                                    'user',
-                                    'section']);
+                                    'user'
+                                    ]);
 
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/'):
-	$urlRouterProvider.when('', '/');
+//	$urlRouterProvider.when('', 'home');
+$locationProvider.html5Mode(true);	
+	$urlRouterProvider.otherwise('/login');
     $stateProvider
     //Page d'accueil
     .state('home', {
@@ -22,11 +24,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 		templateUrl: 'modules/home/views/homeEdit.html',
 		controller: 'edit'
 	});
-
-    $locationProvider.html5Mode({
+	//:$locationProvider.html5Mode(true);
+    /*$locationProvider.html5Mode({
 		enabled: true,
 		requireBase: false
-	});
+	});*/
 });
 
 //Controller

@@ -13,7 +13,7 @@ app.config(function($stateProvider) {
     //Connexion
     .state('login', {
         url: '/login',
-        templateUrl: 'modules/user/views/login.html',
+        templateUrl:'modules/user/views/login.html',
 		controller: 'login'
     })
     //Déconnexion
