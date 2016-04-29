@@ -6,15 +6,7 @@ var mongoose = require('mongoose');
 var enfant = require('../models/enfant.js').enfant;
 var error = require('../../error.js');
 
-//L'utilisateur doit être connecté
-router.use(function(req, res, next){
-    if(!req.user){
-        res.redirect('/');
-    }
-    next();
-});
-
-//On récupère les enfants 
+//Get child 
 router.get('/',function(req, res, next){
     enfant.find({ _id : { $in : req.user.enfants}})
     .select('nom prenom _id')
@@ -24,7 +16,5 @@ router.get('/',function(req, res, next){
 		res.json(enfant);
     });
 });
-
-
 
 module.exports = router;

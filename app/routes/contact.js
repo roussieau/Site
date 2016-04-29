@@ -13,23 +13,6 @@ router.get('/', function(req, res,next) {
     });
 });
 
-//Edition de la page contact
-//Il faut être admin (grade 3)
-router.get('/edit', function(req, res, next){
-	if(!req.user || req.user.grade<3){
-		res.redirect('/');
-	}
-    page.findOne({nom : '/contact/'},function(err, page){
-        if(err) return error(res, err);
-        res.render('editPage',{
-            titre : "Edition",
-            log : req.user,
-            section : req.section,
-            page : page
-        });
-    });
-});
-
 router.post('/edit', function(req, res, next){
     page.findOne({nom: '/contact/' }, function (err, doc){
         doc.titre = req.body.titre;
@@ -37,7 +20,6 @@ router.post('/edit', function(req, res, next){
         doc.save();
         res.end();
     });
-
 });
 
 module.exports = router;

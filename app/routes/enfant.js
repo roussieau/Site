@@ -8,14 +8,6 @@ var section = require('../models/section.js').section;
 var user = require('../models/user.js').user;
 var error = require('../../error.js');
 
-//L'utilisateur doit être connecté
-router.use(function(req, res, next){
-    if(!req.user)
-        res.redirect('/');
-	else 
-    	next();
-});
-
 router.get('/', function(req, res, next){
 	if(req.user.grade > 2){ //Il faut être admin pour voir tous les enfants
 		enfant.find().sort({nom:1}).exec(function(err, enfant){
@@ -44,7 +36,6 @@ router.post('/add', function(req, res, next) {
 	if(req.body.nom && req.body.prenom && req.body.sec &&
 	req.body.jour && req.body.mois && req.body.annee &&
 	req.body.sexe) { //Ces champs doivent être complétés
-		console.log("Bad");
 		var current = new enfant({});
 		current.nom = req.body.nom;
 		current.prenom = req.body.prenom;

@@ -15,22 +15,6 @@ router.all('/', function(req, res,next) {
     });
 });
 
-//Edition de la page d'accueil
-router.get('/edit', function(req, res, next){
-	if(!req.user || req.user.grade <3){
-		res.redirect('/');
-	}
-    page.findOne({nom : '/'},function(err, page){
-        if(err) error(res, err);
-        res.render('editPage',{
-            titre : "Edition",
-            log : req.user,
-            section : req.section,
-            page : page
-        });
-    });
-});
-
 router.post('/edit', function(req, res, next){
     page.findOne({nom: '/' }, function (err, doc){
 		console.log(req.body);
