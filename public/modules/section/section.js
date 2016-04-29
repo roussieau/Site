@@ -4,8 +4,13 @@ var app = angular.module('section', ['ui.router']);
 
 app.config(function($stateProvider) {
     $stateProvider
-    .state('blog',{
-		url: '/nom',
+	.state('section',{
+		url: '/section',
+		abstract: true,
+		template: '<ui-view />'
+	})
+    .state('section.blog',{
+		url: '/:nom',
 		templateUrl: 'modules/section/views/blog.html',
 		controller : 'blog'
 	});
