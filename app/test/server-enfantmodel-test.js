@@ -2,17 +2,20 @@
 
 var should = require('should');
 var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
 var enfant = require('../models/enfant.js').enfant;
 var section = require('../models/section.js').section;
 
 var testEnfant, testSection;
 var date = new Date();
+var query;
 
 describe('Enfant model unit tests:', function() {
-	beforeEach(function(done) {
+	beforeEach(function() {
 		testSection = new section({
 			nom : 'test6'
 		});
+		testSection.save();
 
 		testEnfant = new enfant({
 			nom : 'test1',
@@ -23,14 +26,12 @@ describe('Enfant model unit tests:', function() {
 			section : testSection,
 			commentaire : 'test5'
 		});
-		done();
 	});
 
-	describe('Save', function(done) {
+	describe('Save', function() {
 		it('should be able to be saved', function() {
 			testEnfant.save(function(err) {
 				should.not.exist(err);
-				done();
 			});
 		});
 
@@ -39,7 +40,6 @@ describe('Enfant model unit tests:', function() {
 			testEnfant.prenom = '';
 			testEnfant.save(function(err) {
 				should.exist(err);
-				done();
 			});
 		});
 
@@ -48,7 +48,6 @@ describe('Enfant model unit tests:', function() {
 			testEnfant.date = null;
 			testEnfant.save(function(err) {
 				should.exist(err);
-				done();
 			});
 		});
 
@@ -56,7 +55,6 @@ describe('Enfant model unit tests:', function() {
 			testEnfant.section = null;
 			testEnfant.save(function(err) {
 				should.exist(err);
-				done();
 			});
 		});
 
@@ -64,21 +62,26 @@ describe('Enfant model unit tests:', function() {
 			testEnfant.totem = '';
 			testEnfant.save(function(err) {
 				should.not.exist(err);
-				done();
 			});
 		});
 	});
 
-	describe('Get', function(done) {
-		it('should be found', function() {
-			enfant.findOne({nom: 'test1'}, function(err, enfantFound) {
+	describe('Get', function() {
+		it('should be found', function(done) {
+			testEnfant.save();
+			query = enfant.findOne({nom: 'test1'});
+			query.exec(function(err, enfantFound) {
+				if (err) console.log(err);
 				should.not.exist(err);
 				done();
 			});
 		});
 
-		it('should have the same values', function() {
-			enfant.findOne({nom: '/test'}, function(err, enfantFound) {
+		it('should have the same values', function(done) {
+			testEnfant.save();
+			query = enfant.findOne({nom: 'test1'});
+			query.exec(function(err, enfantFound) {
+				if (err) console.log(err);
 				should.equal(enfantFound.nom, 'test1');
 				should.equal(enfantFound.prenom, 'test2');
 				should.equal(enfantFound.totem, 'test3');
@@ -89,10 +92,19 @@ describe('Enfant model unit tests:', function() {
 				done();
 			});
 		});
+
+		it('should have default values', function(done) {
+			testEnfant.save();
+			query = enfant.findOne({nom: 'test1'});
+			query.exec(function(err, enfantFound) {
+				if (err) console.log(err);
+				should.equal(enfantFound.status, 1);
+				done();
+			});
+		});
 	})
 
-	afterEach(function(done) {
+	afterEach(function() {
 		testEnfant.remove();
-		done();
 	});
 });
