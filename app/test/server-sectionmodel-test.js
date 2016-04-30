@@ -23,22 +23,23 @@ describe('Section model unit tests', function() {
 	});
 
 	describe('Get', function() {
-		it('should be found', function() {
+		it('should be found', function(done) {
 			testSection.save();
 			query = section.findOne({nom : 'test'});
 			query.exec(function(err, sectionFound) {
 				if(err) console.log(err);
 				should.exist(sectionFound);
+				done();
 			});
 		});
 
-		it('shoud have the same values', function() {
+		it('shoud have the same values', function(done) {
 			testSection.save();
 			query = section.findOne({nom : 'test'});
 			query.exec(function(err, sectionFound) {
 				if(err) console.log(err);
-				console.log(sectionFound.nom);
 				should.equal(sectionFound.nom, 'test');
+				done();
 			});
 		});
 	})

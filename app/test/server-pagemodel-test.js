@@ -10,7 +10,7 @@ var query;
 describe('Page model unit tests:', function() {
 	beforeEach(function() {
 		testPage = new page({
-			nom: '/test',
+			nom: 'test',
 			titre: 'Accueil'
 		});
 	});
@@ -26,20 +26,20 @@ describe('Page model unit tests:', function() {
 	describe('Get', function() {
 		it('should be found', function(done) {
 			testPage.save();
-			query = page.findOne({nom: '/test'});
+			query = page.findOne({nom: 'test'});
 			query.exec(function(err, pageFound) {
 				if (err) console.log(err);
-				should.not.exist(err);
+				should.exist(pageFound);
 				done();
 			});
 		});
 
 		it('should have the same values', function(done) {
 			testPage.save();
-			page.findOne({nom: '/test'});
+			query = page.findOne({nom: 'test'});
 			query.exec(function(err, pageFound) {
 				if (err) console.log(err);
-				should.equal(pageFound.nom, '/test');
+				should.equal(pageFound.nom, 'test');
 				should.equal(pageFound.titre, 'Accueil');
 				done();
 			});

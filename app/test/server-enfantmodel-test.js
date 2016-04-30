@@ -2,12 +2,11 @@
 
 var should = require('should');
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
 var enfant = require('../models/enfant.js').enfant;
 var section = require('../models/section.js').section;
 
 var testEnfant, testSection;
-var date = new Date();
+var date = Date.now();
 var query;
 
 describe('Enfant model unit tests:', function() {
@@ -23,7 +22,7 @@ describe('Enfant model unit tests:', function() {
 			totem : 'test3',
 			sexe : 'test4',
 			date : date,
-			section : testSection,
+			section : testSection.id,
 			commentaire : 'test5'
 		});
 	});
@@ -86,10 +85,14 @@ describe('Enfant model unit tests:', function() {
 				should.equal(enfantFound.prenom, 'test2');
 				should.equal(enfantFound.totem, 'test3');
 				should.equal(enfantFound.sexe, 'test4');
-				should.equal(enfantFound.date, date);
-				should.equal(enfantFound.section.nom, 'test6');
+				should.equal(enfantFound.date.getTime(), date);
 				should.equal(enfantFound.commentaire, 'test5');
-				done();
+				query = section.findById(enfantFound.section);
+				query.exec(function(err, sectionFound) {
+					if (err) console.log(err);
+					should.equal(sectionFound.nom, 'test6');
+					done();
+				});
 			});
 		});
 
@@ -98,7 +101,7 @@ describe('Enfant model unit tests:', function() {
 			query = enfant.findOne({nom: 'test1'});
 			query.exec(function(err, enfantFound) {
 				if (err) console.log(err);
-				should.equal(enfantFound.status, 1);
+				should.equal(enfantFound.statut, 1);
 				done();
 			});
 		});
@@ -106,5 +109,6 @@ describe('Enfant model unit tests:', function() {
 
 	afterEach(function() {
 		testEnfant.remove();
+		testSection.remove();
 	});
 });
