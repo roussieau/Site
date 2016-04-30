@@ -42,7 +42,7 @@ describe('Blog model unit tests', function() {
 			});
 		});
 
-		it('shoud have the same values', function(done) {
+		it('should have the same values', function(done) {
 			testBlog.save();
 			query = blog.findOne({titre : 'test1'});
 			query.exec(function(err, blogFound) {

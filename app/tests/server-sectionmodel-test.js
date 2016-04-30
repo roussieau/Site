@@ -33,7 +33,7 @@ describe('Section model unit tests', function() {
 			});
 		});
 
-		it('shoud have the same values', function(done) {
+		it('should have the same values', function(done) {
 			testSection.save();
 			query = section.findOne({nom : 'test'});
 			query.exec(function(err, sectionFound) {
