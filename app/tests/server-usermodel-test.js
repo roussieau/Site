@@ -14,7 +14,6 @@ describe('User model unit tests', function() {
 		testSection = new section({
 			nom: 'test1'
 		});
-		testSection.save();
 
 		testEnfant = new enfant({
 			nom: 'test2',
@@ -23,7 +22,6 @@ describe('User model unit tests', function() {
 			date: Date.now(),
 			section: testSection.id
 		});
-		testEnfant.save();
 
 		testUser = new user({
 			prenom: 'test3',
@@ -43,16 +41,21 @@ describe('User model unit tests', function() {
 		});
 	});
 
-	describe('Save', function() {
-		it('should be able to be saved', function() {
+	describe('Create', function() {
+		it('should be able to be saved', function(done) {
+			testSection.save();
+			testEnfant.save();
 			testUser.save(function(err) {
 				should.not.exist(err);
+				done();
 			});
 		});
 	});
 
-	describe('Get', function() {
+	describe('Read', function() {
 		it('should be found', function(done) {
+			testSection.save();
+			testEnfant.save();
 			testUser.save();
 			query = user.findOne({prenom : 'test3'});
 			query.exec(function(err, userFound) {
@@ -63,6 +66,8 @@ describe('User model unit tests', function() {
 		});
 
 		it('should have the same values', function(done) {
+			testSection.save();
+			testEnfant.save();
 			testUser.save();
 			query = user.findOne({prenom : 'test3'});
 			query.exec(function(err, userFound) {
@@ -79,7 +84,7 @@ describe('User model unit tests', function() {
 				query.exec(function(err, sectionFound) {
 					if (err) console.log(err);
 					should.equal(sectionFound.nom, 'test1');
-				})
+				});
 				query = enfant.findById(userFound.enfants[0]);
 				query.exec(function(err, enfantFound) {
 					if (err) console.log(err);
@@ -89,12 +94,14 @@ describe('User model unit tests', function() {
 						if (err) console.log(err);
 						should.equal(sectionFound.nom, 'test1');
 						done();
-					})
+					});
 				});
 			});
 		});
 
 		it('should have default values', function(done) {
+			testSection.save();
+			testEnfant.save();
 			testUser.save();
 			query = user.findOne({prenom : 'test3'});
 			query.exec(function(err, userFound) {
@@ -105,9 +112,37 @@ describe('User model unit tests', function() {
 		});
 	});
 
+	describe('Update', function() {
+		//TODO: add update
+	});
+
+	describe('Remove', function() {
+		it('should be able to be removed', function(done) {
+			testSection.save();
+			testEnfant.save();
+			testUser.save();
+			section.remove({nom: 'test1'}, function(err) {
+				should.not.exist(err);
+			});
+			enfant.remove({nom: 'test2'}, function(err) {
+				should.not.exist(err);
+			});
+			user.remove({prenom: 'test3'}, function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+	});
+
 	afterEach(function() {
-		testUser.remove();
-		testEnfant.remove();
-		testSection.remove();
+		section.remove({nom: 'test1'}, function(err) {
+			if (err) console.log(err);
+		});
+		enfant.remove({nom: 'test2'}, function(err) {
+			if (err) console.log(err);
+		});
+		user.remove({prenom: 'test3'}, function(err) {
+			if (err) console.log(err);
+		});
 	});
 });

@@ -14,7 +14,6 @@ describe('Enfant model unit tests:', function() {
 		testSection = new section({
 			nom : 'test6'
 		});
-		testSection.save();
 
 		testEnfant = new enfant({
 			nom : 'test1',
@@ -27,46 +26,57 @@ describe('Enfant model unit tests:', function() {
 		});
 	});
 
-	describe('Save', function() {
-		it('should be able to be saved', function() {
+	describe('Create', function() {
+		it('should be able to be saved', function(done) {
+			testSection.save();
 			testEnfant.save(function(err) {
 				should.not.exist(err);
+				done();
 			});
 		});
 
-		it('should require name values', function() {
+		it('should require name values', function(done) {
+			testSection.save();
 			testEnfant.nom = '';
 			testEnfant.prenom = '';
 			testEnfant.save(function(err) {
 				should.exist(err);
+				done();
 			});
 		});
 
-		it('should require base values', function() {
+		it('should require base values', function(done) {
+			testSection.save();
 			testEnfant.sexe = '';
 			testEnfant.date = null;
 			testEnfant.save(function(err) {
 				should.exist(err);
+				done();
 			});
 		});
 
-		it('should require section value', function() {
+		it('should require section value', function(done) {
+			testSection.save();
 			testEnfant.section = null;
 			testEnfant.save(function(err) {
 				should.exist(err);
+				done();
 			});
 		});
 
-		it('should not require other values', function() {
+		it('should not require other values', function(done) {
+			testSection.save();
 			testEnfant.totem = '';
 			testEnfant.save(function(err) {
 				should.not.exist(err);
+				done();
 			});
 		});
 	});
 
-	describe('Get', function() {
+	describe('Read', function() {
 		it('should be found', function(done) {
+			testSection.save();
 			testEnfant.save();
 			query = enfant.findOne({nom: 'test1'});
 			query.exec(function(err, enfantFound) {
@@ -77,6 +87,7 @@ describe('Enfant model unit tests:', function() {
 		});
 
 		it('should have the same values', function(done) {
+			testSection.save();
 			testEnfant.save();
 			query = enfant.findOne({nom: 'test1'});
 			query.exec(function(err, enfantFound) {
@@ -97,6 +108,7 @@ describe('Enfant model unit tests:', function() {
 		});
 
 		it('should have default values', function(done) {
+			testSection.save();
 			testEnfant.save();
 			query = enfant.findOne({nom: 'test1'});
 			query.exec(function(err, enfantFound) {
@@ -105,10 +117,32 @@ describe('Enfant model unit tests:', function() {
 				done();
 			});
 		});
-	})
+	});
+
+	describe('Update', function() {
+		//TODO: add update
+	});
+
+	describe('Remove', function() {
+		it('should be able to be removed', function(done) {
+			testSection.save();
+			testEnfant.save();
+			section.remove({nom: 'test6'}, function(err) {
+				should.not.exist(err);
+			});
+			enfant.remove({nom: 'test1'}, function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+	});
 
 	afterEach(function() {
-		testEnfant.remove();
-		testSection.remove();
+		section.remove({nom: 'test6'}, function(err) {
+			if (err) console.log(err);
+		});
+		enfant.remove({nom: 'test1'}, function(err) {
+			if (err) console.log(err);
+		});
 	});
 });
