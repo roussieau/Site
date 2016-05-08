@@ -46,7 +46,18 @@ describe('Section model unit tests', function() {
 	});
 
 	describe('Update', function() {
-		//TODO: add update
+		it('should be able to update documents', function(done) {
+			testSection.save();
+			section.update({nom: 'test'}, {nom: 'test2'}, function(err) {
+				if(err) console.log(err);
+			});
+			query = section.findOne({nom : 'test2'});
+			query.exec(function(err, sectionFound) {
+				if(err) console.log(err);
+				should.exist(sectionFound);
+				done();
+			});
+		});
 	});
 
 	describe('Remove', function() {

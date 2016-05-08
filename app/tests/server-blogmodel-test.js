@@ -74,7 +74,19 @@ describe('Blog model unit tests', function() {
 	});
 
 	describe('Update', function() {
-		//TODO: add update
+		it('should be able to update documents', function(done) {
+			testSection.save();
+			testBlog.save();
+			blog.update({titre: 'test1'}, {body: 'test3'}, function(err) {
+				if(err) console.log(err);
+			});
+			query = blog.findOne({titre : 'test1'});
+			query.exec(function(err, blogFound) {
+				if(err) console.log(err);
+				should.equal(blogFound.body, 'test3');
+				done();
+			});
+		});
 	});
 
 	describe('Remove', function() {

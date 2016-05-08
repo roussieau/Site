@@ -120,7 +120,19 @@ describe('Enfant model unit tests:', function() {
 	});
 
 	describe('Update', function() {
-		//TODO: add update
+		it('should be able to update documents', function(done) {
+			testSection.save();
+			testEnfant.save();
+			enfant.update({nom: 'test1'}, {prenom: 'test10'}, function(err) {
+				if(err) console.log(err);
+			});
+			query = enfant.findOne({nom : 'test1'});
+			query.exec(function(err, enfantFound) {
+				if(err) console.log(err);
+				should.equal(enfantFound.prenom, 'test10');
+				done();
+			});
+		});
 	});
 
 	describe('Remove', function() {

@@ -48,7 +48,18 @@ describe('Page model unit tests:', function() {
 	});
 
 	describe('Update', function() {
-		//TODO: add update
+		it('should be able to update documents', function(done) {
+			testPage.save();
+			page.update({nom: 'test'}, {titre: 'Accueil2'}, function(err) {
+				if(err) console.log(err);
+			});
+			query = page.findOne({nom : 'test'});
+			query.exec(function(err, pageFound) {
+				if(err) console.log(err);
+				should.equal(pageFound.titre, 'Accueil2');
+				done();
+			});
+		});
 	});
 
 	describe('Remove', function() {

@@ -113,7 +113,20 @@ describe('User model unit tests', function() {
 	});
 
 	describe('Update', function() {
-		//TODO: add update
+		it('should be able to update documents', function(done) {
+			testSection.save();
+			testEnfant.save();
+			testUser.save();
+			user.update({prenom: 'test3'}, {nom: 'test10'}, function(err) {
+				if(err) console.log(err);
+			});
+			query = user.findOne({prenom : 'test3'});
+			query.exec(function(err, userFound) {
+				if(err) console.log(err);
+				should.equal(userFound.nom, 'test10');
+				done();
+			});
+		});
 	});
 
 	describe('Remove', function() {
