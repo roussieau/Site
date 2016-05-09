@@ -15,6 +15,7 @@ router.get('/', function(req, res,next) {
     });
 });
 
+//Edition de la page d'accueil
 router.post('/', function(req, res, next){
     page.findOne({nom: '/' }, function (err, doc){
 		console.log(req.body);
@@ -27,6 +28,9 @@ router.post('/', function(req, res, next){
 	});
 
 });
+
+
+//Il faut changer ça de place !
 
 //Les sites des sections
 router.get('/:nom',function(req, res, next){

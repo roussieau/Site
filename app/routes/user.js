@@ -26,6 +26,12 @@ router.get('/', function(req, res,next) {
     });
 });
 
+router.get('/me', function(req, res){
+    user = {};
+    user.nom = req.user.nom;
+    res.json(user);
+});
+
 router.get('/:id', function(req, res) {
     user.findById(req.params.id, function(err, user){
         if(err) error(res, err);
