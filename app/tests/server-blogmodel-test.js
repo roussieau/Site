@@ -67,7 +67,7 @@ describe('Blog model unit tests', function() {
 			query = blog.findOne({titre : 'test1'});
 			query.exec(function(err, blogFound) {
 				if(err) console.log(err);
-				blogFound.date.getTime().should.be.within(Date.now()-100000000, Date.now()+100000000);
+				blogFound.date.getTime().should.be.within(Date.now()-100000, Date.now()+100000);
 				done();
 			});
 		});
