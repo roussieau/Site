@@ -18,21 +18,13 @@ mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
 
 //Routes
 var routes = require('./app/routes/index');
-var signup = require('./app/routes/signup.js');
-var login = require('./app/routes/login.js');
-var set = require('./app/routes/set.js');
-var logout = require('./app/routes/logout.js');
+var connexion = require('./app/routes/connexion.js');
 var user = require('./app/routes/user.js');
 var contact = require('./app/routes/contact.js');
 var section = require('./app/routes/section.js');
 var enfant = require('./app/routes/enfant.js');
-var dashboard = require('./app/routes/dashboard.js');
 
 var app = express();
-
-//Template
-app.set('views', path.join(__dirname, './app/views'));
-app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -62,15 +54,11 @@ app.use(methodOverride(function(req, res){
 }));
 
 
-app.use('/api/get',set);
-app.use('/api/signup', signup);
-app.use('/api/login', login);
-app.use('/api/logout', logout);
+app.use('/api/connexion', connexion);
 app.use('/api/user', user);
 app.use('/api/contact', contact);
 app.use('/api/section', section);
 app.use('/api/enfant', enfant);
-app.use('/api/dashboard', dashboard);
 app.use('/api', routes);
 app.get('*', function(req, res){
     res.sendFile(path.join(__dirname, '/public/modules/base/views/index.html'));

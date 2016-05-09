@@ -8,14 +8,14 @@ var blog = require('../models/blog.js').blog;
 var error = require('../../error.js');
 
 //On charge la page d'accueil
-router.all('/', function(req, res,next) {
+router.get('/', function(req, res,next) {
     page.findOne({nom : '/'},function(err, page){
         if(err) error(res, err);
         res.json(page);
     });
 });
 
-router.post('/edit', function(req, res, next){
+router.post('/', function(req, res, next){
     page.findOne({nom: '/' }, function (err, doc){
 		console.log(req.body);
         doc.titre = req.body.titre;

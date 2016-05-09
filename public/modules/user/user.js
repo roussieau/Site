@@ -42,10 +42,10 @@ app.controller('dashboard', ['$scope', '$http',
 app.controller('login', ['$rootScope', '$scope', '$http', '$location',
     function($rootScope, $scope, $http, $location){
     	$scope.connection = function(){
-    		$http.post('/api/login', $scope.log)
+    		$http.post('/api/connexion/login', $scope.log)
     		.then(function(reponse){
     			$rootScope.user = reponse.data;
-    			$location.path('/');
+    			$location.path('/dashboard');
     		});
     	};
     }

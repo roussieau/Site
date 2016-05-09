@@ -8,8 +8,23 @@ var user = require('../models/user.js').user;
 var error = require('../../error.js');
 var validator = require('validator');
 
-//Signup
-router.post('/', function(req, res,next) {
+
+//Connexion via passportjs, la configuration se trouve dans ../../config/passport.js
+router.post('/login',passport.authenticate('local'), function(req, res, next){
+	var user = req.user;
+	user.password = "";
+	res.json(user);
+});
+
+//Déconnexion de passportjs
+router.get('/logout', function(req, res,next) {
+  req.logout();
+  res.end();
+});
+
+
+//Inscription
+router.post('/signup', function(req, res,next) {
 	if(req.body.nom && req.body.prenom && req.body.mail &&
 	req.body.password && validator.isEmail(req.body.mail)){
 		var current = new user({});
@@ -26,5 +41,4 @@ router.post('/', function(req, res,next) {
 	}
 	console.log("Il n'est pas rentré dans vérification coté serveur");
 });
-
 module.exports = router;

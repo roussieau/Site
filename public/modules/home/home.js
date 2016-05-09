@@ -4,11 +4,12 @@ var app = angular.module('myApp', ['ui.router',
                                     'base',
                                     'contact',
                                     'user',
-									'section'
+									'section',
+                                    'enfant'
                                     ]);
 
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
-//	$urlRouterProvider.when('', 'home');
+
 $locationProvider.html5Mode(true);	
 	$urlRouterProvider.otherwise('/login');
     $stateProvider
