@@ -3,7 +3,7 @@
 var app = angular.module('myApp', ['ui.router',
                                     'base',
                                     'contact',
-                                    'user',
+                                    'connexion',
 									'section',
                                     'enfant'
                                     ]);
@@ -25,11 +25,6 @@ $locationProvider.html5Mode(true);
 		templateUrl: 'modules/home/views/homeEdit.html',
 		controller: 'edit'
 	});
-	//:$locationProvider.html5Mode(true);
-    /*$locationProvider.html5Mode({
-		enabled: true,
-		requireBase: false
-	});*/
 });
 
 //Controller

@@ -1,28 +1,28 @@
 'use strict';
 
 //Importation des modules
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var session = require('express-session');
-var passport = require('passport');
-var auth = require('./config/passport.js');
+var express       = require('express');
+var path          = require('path');
+var favicon       = require('serve-favicon');
+var logger        = require('morgan');
+var cookieParser  = require('cookie-parser');
+var bodyParser    = require('body-parser');
+var methodOverride= require('method-override');
+var session       = require('express-session');
+var passport      = require('passport');
+var auth          = require('./config/passport.js');
 
 //Connection à la base de donnée
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
 
 //Routes
-var routes = require('./app/routes/index');
-var connexion = require('./app/routes/connexion.js');
-var user = require('./app/routes/user.js');
-var contact = require('./app/routes/contact.js');
-var section = require('./app/routes/section.js');
-var enfant = require('./app/routes/enfant.js');
+var routes   = require('./app/routes/index');
+var connexion= require('./app/routes/connexion.js');
+var user     = require('./app/routes/user.js');
+var contact  = require('./app/routes/contact.js');
+var section  = require('./app/routes/section.js');
+var enfant   = require('./app/routes/enfant.js');
 
 var app = express();
 

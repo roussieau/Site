@@ -1,10 +1,11 @@
 'use strict';
 
-var express = require('express');
-var router = express.Router();
+var express  = require('express');
+var router   = express.Router();
 var mongoose = require('mongoose');
-var section = require('../models/section.js').section;
-var error = require('../../error.js');
+var section  = require('../models/section.js').section;
+var blog     = require('../models/blog.js').blog;
+var error    = require('../../error.js');
 
 //Obtenir la liste des sections
 router.get('/', function(req, res,next) {
@@ -14,12 +15,34 @@ router.get('/', function(req, res,next) {
     });
 });
 
-router.post('/add', function(req, res,next) {
-    var current = new section({nom : req.body.section});
-    current.save(function(err,section){
-        if(err) error(res, err);
-       	res.redirect('/section');
-    });
+//Récupération des articles
+router.get('/:nom', function(req, res, next){
+	section.findOne({'nom':req.params.nom})
+	.select('_id')
+	.exec(function(err, reponse){
+		blog.find({ 'section' : reponse})
+		.limit(10).sort({date : -1})
+		.exec(function(err, blog){
+			res.json(blog);
+		});
+	});
+});
+
+//Ajout d'un article
+router.post('/:nom', function(req, res, next){
+	section.findOne({'nom':req.params.nom})
+	.select('_id')
+	.exec(function(err, reponse){
+		var current = new blog({});
+		current.section = reponse;
+		current.titre = req.body.titre;
+		current.body = req.body.body;
+		current.save(function(err){
+			if(err) error(res, err);
+			else console.log("Nouveau blog -> OK !");
+			res.end();
+		});
+	});
 });
 
 module.exports = router;

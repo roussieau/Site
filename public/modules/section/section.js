@@ -17,8 +17,19 @@ app.config(function($stateProvider) {
 });
 
 //Contrôleurs
-app.controller('blog', ['$scope', '$stateParams',
-    function($scope, $stateParams){
-    	$scope.test = $stateParams.nom;
+app.controller('blog', ['$scope', '$stateParams', '$http',
+    function($scope, $stateParams, $http){
+    	$http.get('/api/section/'+$stateParams.nom)
+    	.then(function(reponse){
+    		$scope.articles = reponse.data;
+    	});
+    	$scope.blog = {};
+    	$scope.blog.nom = $stateParams.nom;
+    	$scope.add = function(){
+    		$http.post('/api/section/'+$stateParams.nom, $scope.blog)
+    		.then(function(reponse){
+    			$scope.message = "Article ajouté avec succès";
+    		});
+    	};
     }
 ]);
