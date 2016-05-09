@@ -14,15 +14,16 @@ describe('Section model unit tests', function() {
 		});
 	});
 
-	describe('Save', function() {
-		it('should be able to be saved', function() {
+	describe('Create', function() {
+		it('should be able to be saved', function(done) {
 			testSection.save(function(err) {
 				should.not.exist(err);
+				done();
 			});
 		});
 	});
 
-	describe('Get', function() {
+	describe('Read', function() {
 		it('should be found', function(done) {
 			testSection.save();
 			query = section.findOne({nom : 'test'});
@@ -42,9 +43,36 @@ describe('Section model unit tests', function() {
 				done();
 			});
 		});
-	})
+	});
+
+	describe('Update', function() {
+		it('should be able to update documents', function(done) {
+			testSection.save();
+			section.update({nom: 'test'}, {nom: 'test2'}, function(err) {
+				if(err) console.log(err);
+			});
+			query = section.findOne({nom : 'test2'});
+			query.exec(function(err, sectionFound) {
+				if(err) console.log(err);
+				should.exist(sectionFound);
+				done();
+			});
+		});
+	});
+
+	describe('Remove', function() {
+		it('should be able to be removed', function(done) {
+			testSection.save();
+			section.remove({nom: 'test'}, function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+	});
 
 	afterEach(function() {
-		testSection.remove();
+		section.remove({nom: 'test'}, function(err) {
+			if (err) console.log(err);
+		});
 	});
 });
