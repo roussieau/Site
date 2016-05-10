@@ -27,9 +27,12 @@ router.get('/', function(req, res,next) {
 });
 
 router.get('/me', function(req, res){
-    user = {};
-    user.nom = req.user.nom;
-    res.json(user);
+    if(req.user){
+        user = {};
+        user.nom = req.user.nom;
+        res.json(user);
+    }
+    res.end();
 });
 
 router.get('/:id', function(req, res) {

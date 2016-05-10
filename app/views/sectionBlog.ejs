@@ -1,4 +1,4 @@
-<% include ./header.ejs%>
+
 <div class="container">
 	<% if(log && ((log.grade == 2 && log.section.toString() == id.toString()) || log.grade == 3)) { %>
 	<h1 id="add"> Ajouter un article </h1>
@@ -20,12 +20,4 @@
 		<%= el.body %>
 	<%_ }); _%>
 </div>
-<% include ./footer.ejs %>
-<script> 
-$(document).ready(function(){
-	$("#add").click(function(){
-		$("form").slideToggle(200);
-	});
-});
-</script>
 
