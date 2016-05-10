@@ -9,6 +9,15 @@ app.config(function($stateProvider) {
 		abstract: true,
 		template: '<ui-view />'
 	})
+
+	//Liste des sections
+	.state('section.list',{
+		url: '/',
+		templateUrl: 'modules/section/views/list.html',
+		controller: 'list'
+	})
+
+	//Blog par section
     .state('section.blog',{
 		url: '/:nom',
 		templateUrl: 'modules/section/views/blog.html',
@@ -32,4 +41,13 @@ app.controller('blog', ['$scope', '$stateParams', '$http',
     		});
     	};
     }
+]);
+
+app.controller('list', ['$scope', '$http',
+	function($scope, $http){
+		$http.get('/api/section')
+		.then(function(reponse){
+			$scope.section = reponse.data;
+		});
+	}
 ]);

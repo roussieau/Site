@@ -7,7 +7,7 @@ app.config(function($stateProvider) {
     //Login
     .state('login', {
         url: '/login',
-        templateUrl:'modules/user/views/login.html',
+        templateUrl:'modules/connexion/views/login.html',
 		controller: 'login'
     })
     //Logout
@@ -18,7 +18,7 @@ app.config(function($stateProvider) {
 	//signup
 	.state('signup',{
 		url: '/signup',
-		templateUrl: 'modules/user/views/signup.html',
+		templateUrl: 'modules/connexion/views/signup.html',
 		controller: 'signup'
 	});
 });
@@ -46,6 +46,8 @@ app.controller('logout', ['$http', '$location', '$rootScope',
     }
 ]);
 
+
+//Inscription
 app.controller('signup', ['$http', '$location', '$scope', 
 	function($http, $location, $scope){
 		$scope.inscription= function(){

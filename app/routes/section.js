@@ -15,7 +15,16 @@ router.get('/', function(req, res,next) {
     });
 });
 
-//Récupération des articles
+//Récupération des 10 derniers articles
+router.get('/all', function(req, res, next){
+	blog.find({ 'section' : reponse})
+	.limit(10).sort({date : -1})
+	.exec(function(err, blog){
+		res.json(blog);
+	});
+});
+
+//Récupération des articles d'une section
 router.get('/:nom', function(req, res, next){
 	section.findOne({'nom':req.params.nom})
 	.select('_id')

@@ -28,12 +28,12 @@ app.config(function($stateProvider) {
 });
 
 //Contrôleurs
-app.controller('contact', ['$scope', '$http',
-    function($scope, $http){
+app.controller('contact', ['$scope', '$http', '$sce',
+    function($scope, $http, $sce){
     	$http.get('/api/contact')
     	.then(function(reponse){
     		$scope.titre = reponse.data.titre;
-    		$scope.body = reponse.data.body;
+    		$scope.body = $sce.trustAsHtml(reponse.data.body);
     	});
     }
 ]);

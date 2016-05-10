@@ -11,7 +11,7 @@ var app = angular.module('myApp', ['ui.router',
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 
 $locationProvider.html5Mode(true);	
-	$urlRouterProvider.otherwise('/login');
+	$urlRouterProvider.otherwise('/');
     $stateProvider
     //Page d'accueil
     .state('home', {
@@ -28,12 +28,15 @@ $locationProvider.html5Mode(true);
 });
 
 //Controller
-app.controller('home', ['$scope', '$http', '$rootScope',
-    function($scope, $http, $rootScope){
+app.controller('home', ['$scope', '$http', '$rootScope', '$sce',
+    function($scope, $http, $rootScope, $sce){
         $http.get('/api')
         .then(function(reponse){
+            var page = {};
             $rootScope.header = "Accueil";
-            $scope.page = reponse.data; //page.titre & page.body
+            page.titre = reponse.data.titre;
+            page.body = $sce.trustAsHtml(reponse.data.body);
+            $scope.page = page;
         });
     }
 ]);
