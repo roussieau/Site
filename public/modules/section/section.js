@@ -21,6 +21,20 @@ app.config(function($stateProvider) {
     .state('section.blog',{
 		url: '/:nom',
 		templateUrl: 'modules/section/views/blog.html',
+		resolve : {
+			auth : function($location, $rootScope, $http, $stateParams){
+				var section;
+				return $http.get('/api/section')
+				.then(function(reponse){
+					section = reponse.data;
+					for(var i =0; i<section.length; i++){
+						if(section[i].nom == $stateParams.nom)
+							return
+					}
+					return $location.path('/404');
+				});
+			}
+		},
 		controller : 'blog'
 	});
 });
