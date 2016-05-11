@@ -1,17 +1,8 @@
 'use strict';
 
-var app = angular.module('myApp', ['ui.router',
-                                    'base',
-                                    'contact',
-                                    'connexion',
-									'section',
-                                    'enfant'
-                                    ]);
+var app = angular.module('home', ['ui.router']);
 
-app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
-
-$locationProvider.html5Mode(true);	
-	$urlRouterProvider.otherwise('/');
+app.config(function($stateProvider) {
     $stateProvider
     //Page d'accueil
     .state('home', {

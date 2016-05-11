@@ -17,15 +17,18 @@ router.get('/', function(req, res,next) {
 
 //Edition de la page d'accueil
 router.post('/', function(req, res, next){
-    page.findOne({nom: '/' }, function (err, doc){
-		console.log(req.body);
-        doc.titre = req.body.titre;
-        doc.body = req.body.body;
-        doc.save(function(err, page){
-			if(err) console.log(err);
-			res.json(doc);
+	if(!req.user || req.user.grade < 3) //Accès refusé
+		res.end();
+	else {
+	    page.findOne({nom: '/' }, function (err, doc){
+	        doc.titre = req.body.titre;
+	        doc.body = req.body.body;
+	        doc.save(function(err, page){
+				if(err) console.log(err);
+				res.json(doc);
+			});
 		});
-	});
+	}
 
 });
 
