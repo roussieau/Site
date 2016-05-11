@@ -32,6 +32,6 @@ var steps = function() {
 		callback(null);
 	});
 
-}
+};
 
 module.exports = steps;

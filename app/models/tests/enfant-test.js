@@ -2,8 +2,8 @@
 
 var should = require('should');
 var mongoose = require('mongoose');
-var enfant = require('../models/enfant.js').enfant;
-var section = require('../models/section.js').section;
+var enfant = require('../enfant.js').enfant;
+var section = require('../section.js').section;
 
 var testEnfant, testSection;
 var date = Date.now();

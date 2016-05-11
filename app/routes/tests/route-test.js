@@ -2,13 +2,13 @@
 
 var should = require('should');
 var request = require('supertest');
-var app = require('../../app.js');
+var app = require('../../../app.js');
 var server = request.agent(app);
 
 describe('Router unit tests', function() {
 	describe('All', function() {
 		it('should be able to login', function(done) {
-			server.post('/api/connexion/login')
+			server.post('/connexion/login')
 				.send({username: 'admin@gmail.com', password: 'ingi'})
 				.expect(302)
 				.expect('Location', '/')

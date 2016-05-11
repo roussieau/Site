@@ -3,8 +3,8 @@
 var should = require('should');
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
-var section = require('../models/section.js').section;
-var blog = require('../models/blog.js').blog;
+var section = require('../section.js').section;
+var blog = require('../blog.js').blog;
 
 var	testSection, testBlog;
 var query;

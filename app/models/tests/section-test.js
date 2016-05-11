@@ -2,7 +2,7 @@
 
 var should = require('should');
 var mongoose = require('mongoose');
-var section = require('../models/section.js').section;
+var section = require('../section.js').section;
 
 var	testSection;
 var query;

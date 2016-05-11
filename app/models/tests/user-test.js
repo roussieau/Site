@@ -2,9 +2,9 @@
 
 var should = require('should');
 var mongoose = require('mongoose');
-var user = require('../models/user.js').user;
-var enfant = require('../models/enfant.js').enfant;
-var section = require('../models/section.js').section;
+var user = require('../user.js').user;
+var enfant = require('../enfant.js').enfant;
+var section = require('../section.js').section;
 
 var	testEnfant, testSection, testUser;
 var query;

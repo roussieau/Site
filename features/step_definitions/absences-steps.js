@@ -41,7 +41,7 @@ var steps = function () {
 		//TODO
 		callback(null);
 	});
-	
-}
+
+};
 
 module.exports = steps;
