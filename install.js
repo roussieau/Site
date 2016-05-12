@@ -5,7 +5,6 @@ mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/db');
 var section = require('./app/models/section.js').section;
 var pageM = require('./app/models/page.js').page;
 var user = require('./app/models/user.js').user;
-var error = require('../../error.js');
 
 var page = new pageM({nom : "/", titre : "Accueil"});
 page.save(function(err, page){
@@ -32,6 +31,7 @@ user.save(function(err, user){
 	console.log("password : ingi");
 });
 var section = new section({nom:"Troupe de l'Harmonie Insolite"});
+section.abr = 'thi';
 section.save(function(err){
     if(err) console.log(err);
 	console.log("Création d'une section -> OK !");

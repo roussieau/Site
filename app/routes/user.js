@@ -9,11 +9,9 @@ var error = require('../../error.js');
 //Récupération du nom de l'utilisateur courant
 
 router.get('/me', function(req, res){
-    console.log("/me");
     if(req.user){
-        user = {};
-        user.nom = req.user.nom;
-        user.grade = req.user.grade;
+        user = req.user;
+        user.password = "";
         res.json(user);
     }
     res.end();

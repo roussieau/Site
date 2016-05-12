@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in enfant">
+            <td>{{x.nom}}</td>
+            <td>{{x.prenom}}</td>
+            <td><a href="/enfant/{{x._id}}">Editer</a></td>
+        </tr>
+    </tbody>
+</table>

@@ -27,12 +27,14 @@ router.get('/all', function(req, res, next){
 
 //Récupération des articles d'une section
 router.get('/:nom', function(req, res, next){
-	section.findOne({'nom':req.params.nom})
+	section.findOne({'abr':req.params.nom})
 	.select('_id')
 	.exec(function(err, reponse){
-		blog.find({ 'section' : reponse})
+		console.log(reponse);
+		blog.find({ section : reponse.id})
 		.limit(10).sort({date : -1})
 		.exec(function(err, blog){
+			if(err) console.log(err);
 			res.json(blog);
 		});
 	});
@@ -40,7 +42,7 @@ router.get('/:nom', function(req, res, next){
 
 //Ajout d'un article
 router.post('/:nom', function(req, res, next){
-	section.findOne({'nom':req.params.nom})
+	section.findOne({'abr':req.params.nom})
 	.select('_id')
 	.exec(function(err, reponse){
 		var current = new blog({});

@@ -5,7 +5,8 @@ var app = angular.module('myApp', ['ui.router',
                                    'connexion',
 								   'section',
                                    'enfant',
-                                   'home'
+                                   'home',
+                                   'user'
                                     ]);
 
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {

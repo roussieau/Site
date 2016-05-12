@@ -65,13 +65,5 @@ app.use('/api', routes);
 app.get('*', function(req, res){
     res.sendFile(path.join(__dirname, '/public/modules/base/views/index.html'));
 });
-//Erreur 404
-app.use(function(req, res) {
-    res.render('404',{
-        titre : "Les scouts | Erreur 404",
-        section : req.section,
-        log : req.log
-    });
-});
 
 module.exports = app;

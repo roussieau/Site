@@ -15,7 +15,8 @@ var userSchema = new Schema({
         ville : String
     },
     gsm : String,
-    enfants : [Schema.ObjectId],
+    enfants : [{type : Schema.ObjectId,
+                ref : 'enfant'}],
     grade : {type : Number, default : 1},
 	section : Schema.ObjectId
 });

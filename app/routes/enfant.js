@@ -8,28 +8,35 @@ var section = require('../models/section.js').section;
 var user = require('../models/user.js').user;
 var error = require('../../error.js');
 
-router.get('/', function(req, res, next){
-	if(req.user.grade > 2){ //Il faut être admin pour voir tous les enfants
-		enfant.find().sort({nom:1}).exec(function(err, enfant){
-			if(err) error(res, err);
-			res.render('enfant',{
-				titre : "Les sections",
-				log : req.user,
-				section : req.section,
-				enfant : enfant
-			});
+
+//On renvoi les enfants de l'utilisateur courant
+router.get('/my', function(req, res, next){
+	if(!req.user)
+		res.end();
+	else {
+		user.findOne({_id : req.user._id})
+		.populate('enfants')
+		.exec(function(err, user){
+			if(err) console.log(err);
+			res.json(user.enfants);
 		});
 	}
-	else 
-		next();
 });
 
-router.get('/add', function(req, res,next) {
-    res.render('addEnfant',{
-        titre : "Ajouter un enfant",
-        log : req.user,
-        section : req.section
-    });
+
+router.get('/', function(req, res, next){
+	enfant.find().sort({nom:1}).exec(function(err, enfant){
+		if(err) error(res, err);
+		res.json(enfant);
+	});
+});
+
+router.get('/:nom', function(req, res, next){
+	section.findOne({nom : req.params.nom})
+	.select('_id')
+	.exec(function(err, section){
+		res.json(section);
+	});
 });
 
 router.post('/add', function(req, res, next) {

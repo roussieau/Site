@@ -28,7 +28,7 @@ app.config(function($stateProvider) {
 				.then(function(reponse){
 					section = reponse.data;
 					for(var i =0; i<section.length; i++){
-						if(section[i].nom == $stateParams.nom)
+						if(section[i].abr == $stateParams.nom)
 							return;
 					}
 					return $location.path('/404');
