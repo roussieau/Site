@@ -1,54 +1,67 @@
 'use strict';
 
+var supertest = require('supertest');
+var app = require('../../app.js');
+var server = supertest.agent(app);
+
+var user = require('../../app/models/user.js').user;
+
 var steps = function() {
 
+	var myUser;
+
 	this.Given(/^a new user$/, function (callback) {
-		//TODO
+		myUser = new user();
 		callback(null);
 	});
 
 	this.Then(/^i can register$/, function (callback) {
-		//TODO
+		myUser = new user({email: 'usr@user.com', password: 'pass'});
 		callback(null);
 	});
 
 	this.Then(/^complete my informations$/, function (callback) {
-		//TODO
+		myUser.nom = 'Nom';
+		myUser.prenom = 'Prenom'
 		callback(null);
 	});
 
 	this.Then(/^I can sign in$/, function (callback) {
-		//TODO
-		callback(null);
+		server.post('/api/connexion/signin')
+			.send({email: 'usr@user.com', password: 'pass'})
+			.expect(200)
+			.end(callback(null));
 	});
 
 	this.When(/^I go to my profile$/, function (callback) {
-		//TODO
-		callback(null);
+		server.get('/me')
+			.expect(200)
+			.end(callback(null));
 	});
 
 	this.Then(/^I can change my informations$/, function (callback) {
-		//TODO
+		myUser.nom = 'Nom2';
 		callback(null);
 	});
 
 	this.Then(/^I can delete my account$/, function (callback) {
-		//TODO
+		myUser = undefined;
 		callback(null);
 	});
 
 	this.Given(/^a registered user with admin rights$/, function (callback) {
-		//TODO
+		myUser = new user({email: 'usr@user.com', password: 'pass', grade: 3});
 		callback(null);
 	});
 
 	this.When(/^I go to the user table$/, function (callback) {
-		//TODO
-		callback(null);
+		server.get('/user')
+			.expect(200)
+			.end(callback(null));
 	});
 
 	this.Then(/^I can give chief or admin rights to a user$/, function (callback) {
-		//TODO
+		myUser.grade = 2;
 		callback(null);
 	});
 
