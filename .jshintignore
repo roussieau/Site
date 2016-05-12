@@ -1,3 +1,5 @@
 node_modules
 *.min.js
 public/scripts/*
+app/models/tests/*
+app/routes/tests/*

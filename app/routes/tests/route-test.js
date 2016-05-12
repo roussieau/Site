@@ -6,19 +6,31 @@ var app = require('../../../app.js');
 var server = request.agent(app);
 
 describe('Router unit tests', function() {
-	describe('All', function() {
+	describe('Connexion', function() {
+		it('should respond', function(done) {
+			server.get('/connexion/login')
+				.expect(200)
+				.end(done);
+		});
+
 		it('should be able to login', function(done) {
-			server.post('/connexion/login')
-				.send({username: 'admin@gmail.com', password: 'ingi'})
-				.expect(302)
-				.expect('Location', '/')
+			server.post('/api/connexion/login')
+				.send({email: 'admin@gmail.com', password: 'ingi'})
+				.expect(200)
 				.end(done);
 		});
 	});
 
 	describe('Index', function() {
 		it('should respond', function(done) {
-			server.get('/api')
+			server.get('/')
+				.expect(200)
+				.end(done);
+		});
+
+		it('should be able to change', function(done) {
+			server.post('/api')
+				.send({titre: 'test', body: 'test'})
 				.expect(200)
 				.end(done);
 		});
@@ -26,49 +38,31 @@ describe('Router unit tests', function() {
 
 	describe('Contact', function() {
 		it('should respond', function(done) {
-			server.get('/api/contact')
+			server.get('/contact')
 				.expect(200)
 				.end(done);
 		});
-	});
 
-	describe('Connexion', function() {
-		it('should respond', function(done) {
-			server.get('/api/Connexion')
+		it('should be able to change', function(done) {
+			server.post('/api/contact/edit')
+				.send({titre: 'test', body: 'test'})
 				.expect(200)
-				.end(done);
-		});
-	});
-
-	describe('Dashboard', function() {
-		it('should respond', function(done) {
-			server.get('/api/dashboard')
-				.expect(200)
-				.end(done);
-		});
-	});
-
-	describe('Enfant', function() {
-		it('should respond', function(done) {
-			server.get('/api/enfant')
-				.expect(302)
 				.end(done);
 		});
 	});
 
 	describe('Section', function() {
 		it('should respond', function(done) {
-			server.get('/api/section')
-				.expect(302)
+			server.get('/section')
+				.expect(200)
+				.end(done);
+		});
+
+		it('should get a specific section', function(done) {
+			server.get('/section/Troupe%20de%20l\'Harmonie%20Insolite')
+				.expect(200)
 				.end(done);
 		});
 	});
 
-	describe('User', function() {
-		it('should respond', function(done) {
-			server.get('/api/user')
-				.expect(302)
-				.end(done);
-		});
-	});
 });
