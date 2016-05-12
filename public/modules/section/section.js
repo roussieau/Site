@@ -29,7 +29,7 @@ app.config(function($stateProvider) {
 					section = reponse.data;
 					for(var i =0; i<section.length; i++){
 						if(section[i].nom == $stateParams.nom)
-							return
+							return;
 					}
 					return $location.path('/404');
 				});

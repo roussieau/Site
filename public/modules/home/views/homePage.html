@@ -11,3 +11,20 @@
 		<p ng-bind-html="page.body"></p>
 	</div>
 </div>
+<h2> Articles récents </h2>
+<div ng-repeat="x in articles">
+	<div class="row">
+		<div class="col-xs-8">
+			<h3>{{x.titre}}</h3>
+		</div>
+		<div class="col-xs-4">
+			<h3 class="pull-right">{{x.date}}</h3>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-xs-12">
+			<p>{{x.body}}</p>
+		</div>
+	</div>
+</div>

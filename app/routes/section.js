@@ -17,8 +17,9 @@ router.get('/', function(req, res,next) {
 
 //Récupération des 10 derniers articles
 router.get('/all', function(req, res, next){
-	blog.find({ 'section' : reponse})
-	.limit(10).sort({date : -1})
+	blog.find({})
+	.limit(10)
+	.sort({date : -1})
 	.exec(function(err, blog){
 		res.json(blog);
 	});

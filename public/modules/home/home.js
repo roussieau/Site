@@ -29,6 +29,11 @@ app.controller('home', ['$scope', '$http', '$rootScope', '$sce',
             page.body = $sce.trustAsHtml(reponse.data.body);
             $scope.page = page;
         });
+        $http.get('/api/section/all')
+        .then(function(reponse){
+            console.log(reponse.data);
+            $scope.articles = reponse.data;
+        });
     }
 ]);
 
