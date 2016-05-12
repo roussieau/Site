@@ -23,10 +23,10 @@ module.exports = function(){
 	    User.findOne({ email: email }, function(err, user) {
 	    	if (err) { return done(err); }
 	        if (!user) {
-	        	return done(null, false, { message: 'Incorrect username.' });
+	        	return done(null, false, { message: 'Adresse mail invalide' });
 	      	}
 	        if (!user.validPassword(password)) {
-	        	return done(null, false, { message: 'Incorrect password.' });
+	        	return done(null, false, { message: 'Mot de passe invalide' });
 	      	}
 	        return done(null, user);
 	    });

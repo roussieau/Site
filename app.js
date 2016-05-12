@@ -1,16 +1,17 @@
 'use strict';
 
 //Importation des modules
-var express       = require('express');
-var path          = require('path');
-var favicon       = require('serve-favicon');
-var logger        = require('morgan');
-var cookieParser  = require('cookie-parser');
-var bodyParser    = require('body-parser');
-var methodOverride= require('method-override');
-var session       = require('express-session');
-var passport      = require('passport');
-var auth          = require('./config/passport.js');
+var express        = require('express');
+var path           = require('path');
+var favicon        = require('serve-favicon');
+var logger         = require('morgan');
+var cookieParser   = require('cookie-parser');
+var bodyParser     = require('body-parser');
+var methodOverride = require('method-override');
+var session        = require('express-session');
+var passport       = require('passport');
+var auth           = require('./config/passport.js');
+var flash          = require('connect-flash');
 
 //Connection à la base de donnée
 var mongoose = require('mongoose');
@@ -42,6 +43,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 var auth = auth();
 
 //Pour avoir accès à GET, POST, PUT et DELETE

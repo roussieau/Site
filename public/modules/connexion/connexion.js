@@ -31,7 +31,9 @@ app.controller('login', ['$rootScope', '$scope', '$http', '$location',
     		.then(function(reponse){
     			$rootScope.user = reponse.data;
     			$location.path('/');
-    		});
+    		}, function(reponse){
+                $scope.error = reponse.data.message;            
+            });
     	};
     }
 ]);
@@ -53,7 +55,6 @@ app.controller('signup', ['$http', '$location', '$scope',
 		$scope.inscription= function(){
 			console.log($scope.info.mail);
 			$http.post('/api/connexion/signup', $scope.info).then(function(user){
-				console.log(user.data);
 				$location.path('/');
 			});
 		};

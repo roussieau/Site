@@ -10,10 +10,23 @@ var validator = require('validator');
 
 
 //Connexion via passportjs, la configuration se trouve dans ../../config/passport.js
-router.post('/login',passport.authenticate('local'), function(req, res, next){
-	var user = req.user;
-	user.password = "";
-	res.json(user);
+router.post('/login', function(req, res, next) {
+	passport.authenticate('local', {failureFlash: true },
+	function(err, user, message){
+		if (err) {
+            return next(err);
+        }
+        if (!user) {
+            res.send(401, message);
+        }
+        req.logIn(user, function(err) {
+    		if (err)
+    			return next(err); 
+        	var user = req.user;
+        	user.password = "";
+        	return res.json(user);
+        });
+    })(req, res, next);
 });
 
 //Déconnexion de passportjs
