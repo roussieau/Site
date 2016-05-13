@@ -28,14 +28,17 @@ router.get('/all', function(req, res, next){
 //Récupération des articles d'une section
 router.get('/:nom', function(req, res, next){
 	section.findOne({'abr':req.params.nom})
-	.select('_id')
+	.select('_id nom description')
 	.exec(function(err, reponse){
-		console.log(reponse);
 		blog.find({ section : reponse.id})
 		.limit(10).sort({date : -1})
 		.exec(function(err, blog){
 			if(err) console.log(err);
-			res.json(blog);
+			var local = {};
+			local.blog = blog;
+			local.nom = reponse.nom;
+			local.description = reponse.description;
+			res.json(local);
 		});
 	});
 });
@@ -43,10 +46,11 @@ router.get('/:nom', function(req, res, next){
 //Ajout d'un article
 router.post('/:nom', function(req, res, next){
 	section.findOne({'abr':req.params.nom})
-	.select('_id')
+	.select('_id nom')
 	.exec(function(err, reponse){
 		var current = new blog({});
-		current.section = reponse;
+		current.section = reponse._id;
+		current.nom = reponse.nom;
 		current.titre = req.body.titre;
 		current.body = req.body.body;
 		current.save(function(err){

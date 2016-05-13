@@ -1,35 +1,40 @@
-<div class="jumbotron">
-	<h1>{{blog.nom}}<h1>
-	<p>Voici une brève présentation.</p>
+<div class="container-fluid block1">
+	<h1>{{nom}}</h1>
+	<p>{{description}}</p>
 </div>
-<h2 id="add"> Ajouter un article </h2>
-<form role="form" style="display: none">
-	<div class="form-group">
-		<label for="titre">Titre :</label>
-	    <input type="text" class="form-control" id="titre" placeholder="Titre de l'article" ng-model="blog.titre">
-	</div>
-	<div class="form-group">
-		<label for="body">Corps :</label>
-		<textarea class="form-control" rows="10" id="body" placeholder="Contenu de l'article" ng-model="blog.body"></textarea>
-	</div>
-	<button type="submit" class="btn btn-default" ng-click="add()">Ajouter</button>
-	<p>{{message}}</p>
-</form>
-<h2>Articles récents</h2>
-<div ng-repeat="x in articles">
-	<div class="row">
-		<div class="col-xs-8">
-			<h3>{{x.titre}}</h3>
+<div class="container-fluid block2">
+	<form role="form" style="display: none">
+	<h2> Ajout d'un Article </h2>
+		<div class="form-group">
+			<label for="titre">Titre :</label>
+		    <input type="text" class="form-control" id="titre" placeholder="Titre de l'article" ng-model="blog.titre">
 		</div>
-		<div class="col-xs-4">
-			<h3 class="pull-right">{{x.date}}</h3>
+		<div class="form-group">
+			<label for="body">Corps :</label>
+			<textarea class="form-control" rows="10" id="body" placeholder="Contenu de l'article" ng-model="blog.body"></textarea>
 		</div>
-	</div>
-	<hr>
-	<div class="row">
-		<div class="col-xs-12">
-			<p>{{x.body}}</p>
+		<button type="submit" class="btn btn-default" ng-click="add()">Ajouter</button>
+		<p>{{message}}</p>
+	</form>
+</div>
+<div class="container-fluid block2">
+<h2> Les derniers articles <span class="pull-right" ng-if="user.grade >= 2" id="add"> Ajouter un article</span></h2>
+<div ng-repeat="x in articles" class="article">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>{{x.titre}} <small>Le {{x.date | date:'dd-MM-yyyy'}}</small></h3> 
+			</div>
+			<hr> 
 		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="corps">
+					{{x.body}}
+				</div>
+			</div>
+		</div>
+		<hr>
 	</div>
 </div>
 

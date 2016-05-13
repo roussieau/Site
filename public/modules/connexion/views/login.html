@@ -1,25 +1,27 @@
-<h1>Connexion</h1>
-<div class="row" ng-controller="login">
-    <form class="form-horizontal" role="form">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="email">Email :</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" ng-model="log.email">
+<div class="container-fluid">
+    <div class="row">
+        <p id="cadenas"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></p>
+    </div>
+    <div class="row" ng-controller="login">
+        <form class="form" role="form">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4 input">
+                    <input type="email" class="form-control" id="email" ng-model="log.email" placeholder="Adresse mail">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="pwd">Password:</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="pwd" ng-model="log.password">
+            <div class="row input">
+                <div class="col-sm-4 col-sm-offset-4 input">
+                    <input type="password" class="form-control" id="pwd" ng-model="log.password" placeholder="Mot de passe">
+                </div>
             </div>
-        </div>
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default" ng-click="connection()">Se connecter</button>
-        </div>
-    </form>
-    <div id="row">
-         <div class="col-sm-offset-2 col-sm-10">
-            <div class="alert alert-danger" role="alert" data-ng-if="error"><p>{{error}}</p></div>
+            <div class="col-sm-4 col-sm-offset-4">
+                <button type="submit" class="btn btn-default center-block" ng-click="connection()">Se connecter</button>
+            </div>
+        </form>
+        <div id="row">
+             <div class="col-sm-4 col-sm-offset-4">
+                <div class="alert alert-danger" id="error" role="alert" data-ng-if="error"><p>{{error}}</p></div>
+            </div>
         </div>
     </div>
 </div>

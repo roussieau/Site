@@ -20,7 +20,10 @@
     </head>
 	<body>
         <header ng-include="'modules/base/views/menu.html'"></header>
-        <div class="container-fluid" ui-view></div>
+        <div ui-view></div>
+        <footer class="container-fluid navbar-fixed-bottom">
+            <p> Site web développé par Julian Roussieau et Sébastien Strebelle </p>
+        </footer>
         <script src="/scripts/bootstrap.min.js"></script>
     </body>
 </html>

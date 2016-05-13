@@ -37,8 +37,8 @@ app.controller('enfantList', ['$scope', '$http',
 ]);
 
 //Controlleur Enfant.add
-app.controller('addEnfant',['$http', '$scope', 
-    function($http, $scope){
+app.controller('addEnfant', ['$http', '$scope', '$location',
+    function($http, $scope, $location){
         $http.get('/api/section')
         .then(function(reponse){
             $scope.section = reponse.data;
@@ -46,7 +46,7 @@ app.controller('addEnfant',['$http', '$scope',
         $scope.add = function(){
             $http.post('/api/enfant/add', $scope.enfant)
             .then(function(reponse){
-                console.log("ok");
+                $location.path('/');
             });
         };
     }
