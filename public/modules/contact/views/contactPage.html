@@ -2,7 +2,7 @@
 	<div class="jumbotron">
 		<div class="row">
 			<div class="col-xs-12">
-				<h1>{{titre}}</h1>
+				<h1>{{titre}} <small ng-if="user.grade > 2"><a ui-sref="contact.edit">Editer</a></small></h1>
 			</div>
 		</div>
 		<div class="row">
