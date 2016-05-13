@@ -65,7 +65,8 @@ footer{
 }
 
 #cadenas{
-    font-size : 200px;
+    margin-top: 50px;
+    font-size : 150px;
     text-align:center;
     color : #474e5d;
 }

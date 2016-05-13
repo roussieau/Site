@@ -36,6 +36,11 @@ var steps = function() {
 		callback(null); //Nothing to do, already created with post /api/section
 	});
 
+	this.Given(/^a user$/, function (callback) {
+		myUser = new user({email: 'usr@user.com', password: 'pass', grade: 2});
+		callback(null);
+	});
+
 	this.When(/^I go to a section blog$/, function (callback) {
 		server.get('/section/'+mySection.abr) //pas bon
 			.expect(200)

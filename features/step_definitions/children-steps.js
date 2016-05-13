@@ -34,6 +34,11 @@ var steps = function() {
 		callback(null);
 	});
 
+	this.Given(/^a registered user with children enrolled$/, function (callback) {
+		myUser = new user({email: 'usr@user.com', password: 'pass', enfants: [myEnfant.id]});
+		callback(null);
+	});
+
 	this.Then(/^I can change my children's informations$/, function (callback) {
 		server.post('/api/enfant')
 			.expect(200)
