@@ -24,6 +24,7 @@ router.get('/my', function(req, res, next){
 });
 
 
+//Renvoi tous les enfants du site
 router.get('/', function(req, res, next){
 	enfant.find().sort({nom:1}).exec(function(err, enfant){
 		if(err) error(res, err);
@@ -31,57 +32,37 @@ router.get('/', function(req, res, next){
 	});
 });
 
+//Renvoi la liste des enfants d'une section
 router.get('/:nom', function(req, res, next){
-	section.findOne({nom : req.params.nom})
+	section.findOne({abr : req.params.nom})
 	.select('_id')
 	.exec(function(err, section){
-		res.json(section);
+		enfant.find({section : section})
+		.exec(function(err, enfant){
+			if(err) console.log(err);
+			res.json(enfant);
+		});
 	});
 });
 
+//Ajotuer un enfant
 router.post('/add', function(req, res, next) {
-	if(req.body.nom && req.body.prenom && req.body.sec &&
-	req.body.jour && req.body.mois && req.body.annee &&
-	req.body.sexe) { //Ces champs doivent être complétés
-		var current = new enfant({});
-		current.nom = req.body.nom;
-		current.prenom = req.body.prenom;
-		current.totem = req.body.totem;
-		current.date = new Date(req.body.annee+"-"+req.body.mois+"-"+req.body.jour);
-		current.sexe = req.body.sexe;
-		current.commentaire = req.body.commentaire;
-		current.section = req.body.sec;
-		user.findByIdAndUpdate(req.user._id,{$push : {enfants : current._id}},{'new': true},function(err, user){
-			if (err) error(res, err);
-		});
-		current.save(function(err, enfant){
-			if(err) error(res, err);
-			console.log("Nouvel enfant : \n" + enfant);
-		});
-	}
-	res.redirect('/');
-});
-
-//Modidication d'un enfants
-//Il faut être admin ou que ça soit le sien
-router.get('/:id', function(req, res, next) {
-	if(req.user.grade >2 || inTab(req.user.enfants, req.params.id)){
-		enfant.findById(req.params.id, function(err, enfant){
-			if(err) error(res, err);
-			if(enfant){
-				res.render('editEnfant',{
-					titre : "Enfant",
-					log : req.user,
-					section : req.section,
-					enfant : enfant
-				});
-			}
-			else
-				next();
-		});
-	}
-	else 
-		next();
+	var current = new enfant({});
+	current.nom = req.body.nom;
+	current.prenom = req.body.prenom;
+	current.totem = req.body.totem;
+	current.date = new Date(req.body.annee+"-"+req.body.mois+"-"+req.body.jour);
+	current.sexe = req.body.sexe;
+	current.commentaire = req.body.commentaire;
+	current.section = req.body.sec;
+	user.findByIdAndUpdate(req.user._id,{$push : {enfants : current._id}},{'new': true},function(err, user){
+		if (err) error(res, err);
+	});
+	current.save(function(err, enfant){
+		if(err) error(res, err);
+		console.log("Nouvel enfant : \n" + enfant);
+	});
+	res.end();
 });
 
 router.post('/:id', function(req, res) {

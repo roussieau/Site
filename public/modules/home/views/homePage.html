@@ -1,30 +1,42 @@
-<div class="row" ng-controller="home">
-	<div class="col-xs-6">
-		<h1>{{page.titre}}</h1>
-	</div>
-	<div class="col-xs-6">
-		<h1 class="pull-right" data-ng-if="user.grade > 2"><a class="btn btn-primary" ui-sref="homeEdit" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editer la page</a></h1>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-12">
-		<p ng-bind-html="page.body"></p>
-	</div>
-</div>
-<h2> Articles récents </h2>
-<div ng-repeat="x in articles">
-	<div class="row">
-		<div class="col-xs-8">
-			<h3>{{x.titre}}</h3>
-		</div>
-		<div class="col-xs-4">
-			<h3 class="pull-right">{{x.date}}</h3>
-		</div>
-	</div>
-	<hr>
-	<div class="row">
+<div class="container-fluid" id="back1">
+	<div class="row" ng-controller="home">
 		<div class="col-xs-12">
-			<p>{{x.body}}</p>
+			<h1>{{page.titre}}</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<p ng-bind-html="page.body"></p>
 		</div>
 	</div>
 </div>
+<div class="container-fluid">
+	<h2> Les derniers articles </h2>
+	<div ng-repeat="x in articles" class="article">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="row">
+				<div class="col-xs-12">
+					<h3 class="titre">{{x.nom}}</h3>
+					<h3>{{x.titre}} <small>Le {{x.date | date:'dd-MM-yyyy'}}</small></h3> 
+				</div>
+				<hr> 
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="corps">
+						{{x.body}}
+					</div>
+				</div>
+			</div>
+			<hr>
+		</div>
+	</div>
+</div>
+
+<script>
+convert = function(s){
+	console.log("convert");
+	var d = new Date(s);
+	return d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear();
+}
+</script>

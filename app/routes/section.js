@@ -30,7 +30,6 @@ router.get('/:nom', function(req, res, next){
 	section.findOne({'abr':req.params.nom})
 	.select('_id')
 	.exec(function(err, reponse){
-		console.log(reponse);
 		blog.find({ section : reponse.id})
 		.limit(10).sort({date : -1})
 		.exec(function(err, blog){
@@ -43,10 +42,11 @@ router.get('/:nom', function(req, res, next){
 //Ajout d'un article
 router.post('/:nom', function(req, res, next){
 	section.findOne({'abr':req.params.nom})
-	.select('_id')
+	.select('_id nom')
 	.exec(function(err, reponse){
 		var current = new blog({});
-		current.section = reponse;
+		current.section = reponse._id;
+		current.nom = reponse.nom;
 		current.titre = req.body.titre;
 		current.body = req.body.body;
 		current.save(function(err){

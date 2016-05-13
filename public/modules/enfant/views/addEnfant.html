@@ -43,7 +43,8 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="sec">Section</label>
 				<div class="col-sm-10">
-					<select class="form-control" id="sec" ng-model="enfant.sec">
+					<select class="form-control" id="sec" ng-model="enfant.sec">					
+						<option ng-repeat="y in section" value="{{y._id}}">{{y.nom}}</option>
 					</select>
 				</div>
 			</div>

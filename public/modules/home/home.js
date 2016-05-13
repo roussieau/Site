@@ -31,7 +31,6 @@ app.controller('home', ['$scope', '$http', '$rootScope', '$sce',
         });
         $http.get('/api/section/all')
         .then(function(reponse){
-            console.log(reponse.data);
             $scope.articles = reponse.data;
         });
     }

@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var blogSchema = new Schema({
 	titre : String,
 	body : String,
+	nom : String,
 	section : Schema.ObjectId,
 	date : {type : Date, default : Date.now}
 });
