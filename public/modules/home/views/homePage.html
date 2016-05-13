@@ -1,7 +1,7 @@
-<div class="container-fluid" id="back1">
+<div class="container-fluid block1">
 	<div class="row" ng-controller="home">
 		<div class="col-xs-12">
-			<h1>{{page.titre}}</h1>
+			<h1>{{page.titre}} <small ng-if="user.grade > 2"><a ui-sref="homeEdit">Editer</a></small></h1>
 		</div>
 	</div>
 	<div class="row">
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid block2">
 	<h2> Les derniers articles </h2>
 	<div ng-repeat="x in articles" class="article">
 		<div class="col-md-10 col-md-offset-1">
@@ -32,11 +32,3 @@
 		</div>
 	</div>
 </div>
-
-<script>
-convert = function(s){
-	console.log("convert");
-	var d = new Date(s);
-	return d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear();
-}
-</script>
