@@ -61,4 +61,18 @@ router.post('/:nom', function(req, res, next){
 	});
 });
 
+router.put('/:nom', function(req, res, next){
+	section.findOne({'abr':req.params.nom})
+	.select('_id')
+	.exec(function(err, reponse){
+		console.log(req.body.description);
+		section.findByIdAndUpdate(reponse.id, {$set :{ description: req.body.description}},
+		function(err, section){
+			if(err) console.log(err);
+			console.log(section);
+		});
+		res.end()
+	});
+});
+
 module.exports = router;

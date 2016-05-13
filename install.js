@@ -6,7 +6,8 @@ var section = require('./app/models/section.js').section;
 var pageM = require('./app/models/page.js').page;
 var user = require('./app/models/user.js').user;
 
-var page = new pageM({nom : "/", titre : "Accueil"});
+var page = new pageM({nom : "/", titre : "Bienvenue sur la page d'accueil !"});
+page.body = '<div class="row"><div class="col-md-6"><img src="/img/scout.png" height="400px " class="center-block"/></div><div class="col-md-6">Bienvenu sur le site web développé par Julian Roussieau et Sébastien Strebelle <br />Si vous avez des questions ou des requêtes. <br />Vous pouvez les faire à l\'adresse suivante : <br />julian@roussieau.com <br /> <br />Bonne visite</div></div>'
 page.save(function(err, page){
 	if(err) console.log(err);
 	console.log("Création de la page d'accueil -> OK !");

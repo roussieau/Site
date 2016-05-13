@@ -1,9 +1,18 @@
 <div class="container-fluid block1">
-	<h1>{{nom}}</h1>
+	<h1>{{nom}} <small id="edit"><span ng-if="user.grade > 2" >Edit</span></small></h1>
 	<p>{{description}}</p>
 </div>
 <div class="container-fluid block2">
-	<form role="form" style="display: none">
+	<form role="form" style="display: none" id="description">
+	<h2> Mofidier la description </h2>
+		<div class="form-group">
+			<label for="body">Nouvelle description</label>
+			<textarea class="form-control" rows="10" id="body" placeholder="Contenu de l'article" ng-model="description"></textarea>
+		</div>
+		<button type="submit" class="btn btn-default" ng-click="edit()">Ajouter</button>
+		<p>{{message}}</p>
+	</form>
+	<form role="form" style="display: none" id="addA">
 	<h2> Ajout d'un Article </h2>
 		<div class="form-group">
 			<label for="titre">Titre :</label>
@@ -18,30 +27,34 @@
 	</form>
 </div>
 <div class="container-fluid block2">
-<h2> Les derniers articles<span class="pull-right" id="new"><span ng-if="user.grade > 2">Ajouter un article</span></span></h2>
-<div ng-repeat="x in articles" class="article">
-	<div class="col-md-10 col-md-offset-1">
-		<div class="row">
-			<div class="col-xs-12">
-				<h3>{{x.titre}} <small>Le {{x.date | date:'dd-MM-yyyy'}}</small></h3> 
+	<h2> Les derniers articles<span class="pull-right" id="new"><span ng-if="user.grade > 2">Ajouter un article</span></span></h2>
+	<div ng-repeat="x in articles" class="article">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>{{x.titre}} <small>Le {{x.date | date:'dd-MM-yyyy'}}</small></h3> 
+				</div>
+				<hr> 
 			</div>
-			<hr> 
-		</div>
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="corps">
-					{{x.body}}
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="corps">
+						{{x.body}}
+					</div>
 				</div>
 			</div>
+			<hr>
 		</div>
-		<hr>
 	</div>
 </div>
 
 <script>
 $(document).ready(function(){
     $("#new").click(function(){
-        $("form").slideToggle();
+        $("#addA").slideToggle();
+    });
+    $("#edit").click(function(){
+        $("#description").slideToggle();
     });
 });
 </script>

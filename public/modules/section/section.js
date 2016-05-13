@@ -64,6 +64,9 @@ app.controller('blog', ['$scope', '$stateParams', '$http',
     			$scope.message = "Article ajouté avec succès";
     		});
     	};
+    	$scope.edit = function(){
+    		$http.put('/api/section/'+$stateParams.nom, {description : $scope.description});
+    	};
     }
 ]);
 
