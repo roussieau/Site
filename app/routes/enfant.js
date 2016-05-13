@@ -26,26 +26,16 @@ router.get('/my', function(req, res, next){
 
 //Renvoi tous les enfants du site
 router.get('/', function(req, res, next){
-	enfant.find().sort({nom:1}).exec(function(err, enfant){
-		if(err) error(res, err);
-		res.json(enfant);
-	});
-});
-
-//Renvoi la liste des enfants d'une section
-router.get('/:nom', function(req, res, next){
-	section.findOne({abr : req.params.nom})
-	.select('_id')
-	.exec(function(err, section){
-		enfant.find({section : section})
-		.exec(function(err, enfant){
-			if(err) console.log(err);
+	if(req.user && req.user.grade > 2){
+		enfant.find().sort({nom:1}).exec(function(err, enfant){
+			if(err) error(res, err);
 			res.json(enfant);
 		});
-	});
+	}
 });
 
-//Ajotuer un enfant
+
+//Ajouter un enfant
 router.post('/add', function(req, res, next) {
 	var current = new enfant({});
 	current.nom = req.body.nom;
@@ -65,21 +55,6 @@ router.post('/add', function(req, res, next) {
 	res.end();
 });
 
-router.post('/:id', function(req, res) {
-	if(req.user.grade >2 || inTab(req.user.enfants, req.params.id)){
-		enfant.findByIdAndUpdate(req.params.id,{ $set : {
-			nom : req.body.nom,
-			prenom : req.body.prenom,
-			totem : req.body.totem,
-			section : req.body.sec,
-			commentaire : req.body.commentaire
-		}},{new: true},function(err, enfant){
-			if(err) error(res, err);
-			console.log("Enfant : \n" +enfant);
-		});
-	}
-    res.redirect('/dashboard');
-});
 
 
 //Check si id est dans le tableau d'objectId

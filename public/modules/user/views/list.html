@@ -1,0 +1,19 @@
+<div class="container-fluid">
+	<h1>Les utilisateurs </h1>
+	<div class="row">
+		<table class="table table-striped">
+		    <thead>
+		      <tr>
+		        <th>Nom</th>
+		        <th>Prénom</th>
+		      </tr>
+		    </thead>
+			<tbody>
+				<tr ng-repeat="x in user">
+					<td>{{x.nom}}</td>
+					<td>{{x.prenom}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

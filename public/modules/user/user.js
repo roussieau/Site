@@ -4,6 +4,11 @@ var app = angular.module('user', ['ui.router']);
 
 app.config(function($stateProvider){
 	$stateProvider
+	.state('user',{
+		url:'/user',
+		templateUrl: 'modules/user/views/list.html',
+		controller : 'list'
+	})
 
 	//Dashboard
 	.state('dashboard',{
@@ -13,6 +18,7 @@ app.config(function($stateProvider){
 	});
 });
 
+//Récupère les infos pour le dashboard
 app.controller('dashboard', [ '$scope', '$http',
 	function($scope, $http){
 		$http.get('/api/enfant/my')
@@ -20,6 +26,15 @@ app.controller('dashboard', [ '$scope', '$http',
 			$scope.enfant = reponse.data;
 		});
 		$http.get('/api/user/me')
+		.then(function(reponse){
+			$scope.user = reponse.data;
+		});
+	}
+]);
+
+app.controller('list', [ '$scope', '$http',
+	function($scope, $http){
+		$http.get('/api/user')
 		.then(function(reponse){
 			$scope.user = reponse.data;
 		});

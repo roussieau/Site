@@ -17,13 +17,6 @@ app.config(function($stateProvider) {
 		controller: 'list'
 	})
 
-	//Absence
-	.state('section.absence', {
-		url: '/absence',
-		templateUrl : 'modules/section/views/absences.html',
-		controller : 'absence'
-	})
-
 	//Blog par section
     .state('section.blog',{
 		url: '/:nom',
@@ -44,9 +37,21 @@ app.config(function($stateProvider) {
 		},
 		controller : 'blog'
 	});
-	
-	//Absences d'une section
-	});
+});
+
+//Liste des sections
+app.controller('list', ['$scope', '$http',
+	function($scope, $http){
+		$http.get('/api/section')
+		.then(function(reponse){
+			$scope.section = reponse.data;
+		});
+		$scope.add = function(){
+			console.log($scope.sec);
+			$http.post('/api/section/add', $scope.sec);
+		};
+	}
+]);
 
 //Affiche le blog de la section
 app.controller('blog', ['$scope', '$stateParams', '$http', '$sce',
@@ -69,31 +74,7 @@ app.controller('blog', ['$scope', '$stateParams', '$http', '$sce',
     		$http.put('/api/section/'+$stateParams.nom, {description : $scope.description});
     	};
 		$scope.delete = function(id){
-			console.log(id);
 			$http.delete('/api/blog/'+id);
 		};
     }
-]);
-
-//Liste des sections
-app.controller('list', ['$scope', '$http',
-	function($scope, $http){
-		$http.get('/api/section')
-		.then(function(reponse){
-			$scope.section = reponse.data;
-		});
-		$scope.add = function(){
-			console.log($scope.sec);
-			$http.post('/api/section/add', $scope.sec);
-		};
-	}
-]);
-
-app.controller('absence', ['$scope', '$http',
-	function($scope, $http){
-		$http.get('/api/enfant/thi')
-		.then(function(reponse){
-			$scope.enfant = reponse.data;
-		});
-	}
 ]);

@@ -10,9 +10,9 @@ var error = require('../../error.js');
 
 router.get('/me', function(req, res){
     if(req.user){
-        user = req.user;
-        user.password = "";
-        res.json(user);
+        var usr = req.user;
+        usr.password = "";
+        res.json(usr);
     }
     res.end();
 });
