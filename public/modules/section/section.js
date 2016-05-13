@@ -52,7 +52,9 @@ app.controller('blog', ['$scope', '$stateParams', '$http',
     function($scope, $stateParams, $http){
     	$http.get('/api/section/'+$stateParams.nom)
     	.then(function(reponse){
-    		$scope.articles = reponse.data;
+    		$scope.articles = reponse.data.blog;
+    		$scope.description = reponse.data.description;
+    		$scope.nom = reponse.data.nom;
     	});
     	$scope.blog = {};
     	$scope.blog.nom = $stateParams.nom;
