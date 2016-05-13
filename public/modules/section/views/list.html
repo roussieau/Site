@@ -1,13 +1,17 @@
-<h1>Les sections</h1>
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Nom</th>
-      </tr>
-    </thead>
-	<tbody>
-		<tr ng-repeat="x in section">
-			<td>{{x.nom}}</td>
-		</tr>
-	</tbody>
-</table>
+<div class="container-fluid">
+	<h1>Les sections</h1>
+	<table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>Nom</th>
+	        <th>Supprimé</th>
+	      </tr>
+	    </thead>
+		<tbody>
+			<tr ng-repeat="x in section">
+				<td>{{x.nom}}</td>
+				<td ng-click="delete(x._id)"> Supprimer</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

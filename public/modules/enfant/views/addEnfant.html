@@ -1,61 +1,63 @@
-<h1>Inscription d'un enfant</h1>
-<div class="row">
-	<form class="form-horizontal" role="form" method="post">
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="nom">Nom</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="nom" ng-model="enfant.nom">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="prenom">Prénom</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="prenom" ng-model="enfant.prenom">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="totem">Totem</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="totem" ng-model="enfant.totem">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="sexe">Sexe</label>
-				<div class="col-sm-10">
-					<label class="radio-inline"><input type="radio" id="sexe" ng-model="enfant.sexe" value="M">M</label>
-					<label class="radio-inline"><input type="radio" id="sexe" ng-model="enfant.sexe" value="F">F</label>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="anniversaire"> Date de naissance</label>
-				<div class="col-sm-10">
-					<div class="col-sm-2">
-						<input class="form-control" id="jour" type="text" placeholder="JJ" ng-model="enfant.jour">
-					</div>
-					<div class="col-sm-2">
-						<input class="form-control" id="mois" type="text" placeholder="MM" ng-model="enfant.mois">
-					</div>
-					<div class="col-sm-2">
-						<input class="form-control" id="annee" type="text" placeholder="AAAA" ng-model="enfant.annee">
+<div class="container-fluid">
+	<h1>Inscription d'un enfant</h1>
+	<div class="row">
+		<form class="form-horizontal" role="form" method="post">
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="nom">Nom</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="nom" ng-model="enfant.nom">
 					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="sec">Section</label>
-				<div class="col-sm-10">
-					<select class="form-control" id="sec" ng-model="enfant.sec">					
-						<option ng-repeat="y in section" value="{{y._id}}">{{y.nom}}</option>
-					</select>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="prenom">Prénom</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="prenom" ng-model="enfant.prenom">
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="commentaire">Commentaire</label>
-				<div class="col-sm-10">
-					<textarea class="form-control" rows="5" id="commentaire" ng-model="enfant.commentaire" placeholder="Ajouter un commentaire"></textarea>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="totem">Totem</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="totem" ng-model="enfant.totem">
+					</div>
 				</div>
-			</div>
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" ng-click="add()" class="btn btn-default">Enregistrer</button>
-			</div>
-	</form>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="sexe">Sexe</label>
+					<div class="col-sm-10">
+						<label class="radio-inline"><input type="radio" id="sexe" ng-model="enfant.sexe" value="M">M</label>
+						<label class="radio-inline"><input type="radio" id="sexe" ng-model="enfant.sexe" value="F">F</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="anniversaire"> Date de naissance</label>
+					<div class="col-sm-10">
+						<div class="col-sm-2">
+							<input class="form-control" id="jour" type="text" placeholder="JJ" ng-model="enfant.jour">
+						</div>
+						<div class="col-sm-2">
+							<input class="form-control" id="mois" type="text" placeholder="MM" ng-model="enfant.mois">
+						</div>
+						<div class="col-sm-2">
+							<input class="form-control" id="annee" type="text" placeholder="AAAA" ng-model="enfant.annee">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="sec">Section</label>
+					<div class="col-sm-10">
+						<select class="form-control" id="sec" ng-model="enfant.sec">					
+							<option ng-repeat="y in section" value="{{y._id}}">{{y.nom}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="commentaire">Commentaire</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" id="commentaire" ng-model="enfant.commentaire" placeholder="Ajouter un commentaire"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" ng-click="add()" class="btn btn-default">Enregistrer</button>
+				</div>
+		</form>
+	</div>
 </div>

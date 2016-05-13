@@ -24,6 +24,7 @@ var user     = require('./app/routes/user.js');
 var contact  = require('./app/routes/contact.js');
 var section  = require('./app/routes/section.js');
 var enfant   = require('./app/routes/enfant.js');
+var blog     = require('./app/routes/blog.js');
 
 var app = express();
 
@@ -61,6 +62,7 @@ app.use('/api/user', user);
 app.use('/api/contact', contact);
 app.use('/api/section', section);
 app.use('/api/enfant', enfant);
+app.use('/api/blog', blog);
 app.use('/api', routes);
 app.get('*', function(req, res){
     res.sendFile(path.join(__dirname, '/public/modules/base/views/index.html'));

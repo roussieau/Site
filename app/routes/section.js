@@ -61,6 +61,7 @@ router.post('/:nom', function(req, res, next){
 	});
 });
 
+//Modifier la description d'une section
 router.put('/:nom', function(req, res, next){
 	section.findOne({'abr':req.params.nom})
 	.select('_id')

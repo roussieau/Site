@@ -17,6 +17,7 @@ app.config(function($stateProvider) {
 		controller: 'list'
 	})
 
+	//Absence
 	.state('section.absence', {
 		url: '/absence',
 		templateUrl : 'modules/section/views/absences.html',
@@ -48,12 +49,12 @@ app.config(function($stateProvider) {
 	});
 
 //Affiche le blog de la section
-app.controller('blog', ['$scope', '$stateParams', '$http',
-    function($scope, $stateParams, $http){
+app.controller('blog', ['$scope', '$stateParams', '$http', '$sce',
+    function($scope, $stateParams, $http, $sce){
     	$http.get('/api/section/'+$stateParams.nom)
     	.then(function(reponse){
     		$scope.articles = reponse.data.blog;
-    		$scope.description = reponse.data.description;
+    		$scope.description = $sce.trustAsHtml(reponse.data.description);
     		$scope.nom = reponse.data.nom;
     	});
     	$scope.blog = {};
@@ -67,6 +68,10 @@ app.controller('blog', ['$scope', '$stateParams', '$http',
     	$scope.edit = function(){
     		$http.put('/api/section/'+$stateParams.nom, {description : $scope.description});
     	};
+		$scope.delete = function(id){
+			console.log(id);
+			$http.delete('/api/blog/'+id);
+		};
     }
 ]);
 

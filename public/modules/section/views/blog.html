@@ -1,6 +1,6 @@
 <div class="container-fluid block1">
 	<h1>{{nom}} <small id="edit"><span ng-if="user.grade > 2" >Edit</span></small></h1>
-	<p>{{description}}</p>
+	<p ng-bind-html="description"></p>
 </div>
 <div class="container-fluid block2">
 	<form role="form" style="display: none" id="description">
@@ -32,7 +32,8 @@
 		<div class="col-md-10 col-md-offset-1">
 			<div class="row">
 				<div class="col-xs-12">
-					<h3>{{x.titre}} <small>Le {{x.date | date:'dd-MM-yyyy'}}</small></h3> 
+					<h3>{{x.titre}} <small>Le {{x.date | date:'dd-MM-yyyy'}}</small></h3>
+					<p ng-click="delete(x._id)" class="pull-right"> Supprimer </p>
 				</div>
 				<hr> 
 			</div>
