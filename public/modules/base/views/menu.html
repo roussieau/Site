@@ -30,6 +30,7 @@
                     </ul>
                     <ul class="dropdown-menu" data-ng-if="user">
     					<li><a href="/dashboard">Dashboard</a></li>
+                        <li data-ng-if="user.grade > 2"><a href="/section">Les sections</a></li>
     					<li><a ui-sref="logout">Se déconnecter</a></li>
                     </ul>
                 </li>

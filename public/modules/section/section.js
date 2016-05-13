@@ -82,6 +82,10 @@ app.controller('list', ['$scope', '$http',
 		.then(function(reponse){
 			$scope.section = reponse.data;
 		});
+		$scope.add = function(){
+			console.log($scope.sec);
+			$http.post('/api/section/add', $scope.sec);
+		};
 	}
 ]);
 

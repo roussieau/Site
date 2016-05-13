@@ -9,10 +9,23 @@ var error    = require('../../error.js');
 
 //Obtenir la liste des sections
 router.get('/', function(req, res,next) {
-    section.find().sort({nom : 1}).exec(function(err, section){
+    section.find().sort({nom : 1})
+    .sort({nom : -1})
+    .exec(function(err, section){
         if(err) error(res, err);
         res.json(section);
     });
+});
+
+router.post('/add', function(req, res, next){
+	var current = new section({});
+	current.nom = req.body.nom;
+	current.abr = req.body.abr;
+	current.description = req.body.description;
+	current.save(function(err, section){
+		if(err) console.log(err);
+		console.log(section);
+	});
 });
 
 //Récupération des 10 derniers articles
